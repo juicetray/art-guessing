@@ -1,99 +1,34 @@
-let currentPaintingIndex = 0;
-let artData = null; // Variable to store fetched art data
-
 async function fetchArtData() {
-    const response = await fetch("https://api.artic.edu/api/v1/artworks?limit=100");
-    return await response.json();
+  const response = await fetch("https://api.artic.edu/api/v1/artworks?limit=100");
+  const art = await response.json()
+
+  const popularPaintings = art.data.filter((artwork) => { 
+    return !artwork.has_not_been_viewed_much && artwork.classification_title === "painting"});
+  popularPaintings.forEach ((painting) =>
+  {
+    const artist = painting.artist_title;
+    const artworkTitle = painting.title;
+    const date = painting.date_display;
+
+    console.log(`Painting: ${artworkTitle} by ${artist}, Created: ${date}`);
+
+    displayPainting(painting);
+  })
 }
 
-function filterPaintings(art) {
-    return art.data.filter(artwork => artwork.artwork_type_title === "Painting");
+const displayPainting = (painting) => {
+
+  const imgDiv = document.createElement("div");
+  let paintingId = painting.image_id;
+  const paintingUrl = `https://www.artic.edu/iiif/2/${paintingId}/full/843,/0/default.jpg`;
+  const paintingImg = document.createElement("img");
+  paintingImg.src = paintingUrl;
+
+  imgDiv.appendChild(paintingImg);
+  document.body.append(imgDiv);
 }
 
-function getCurrentPainting() {
-    if (!artData) {
-        console.log("Art data not fetched yet.");
-        return {};
-    }
-
-    const paintings = filterPaintings(artData);
-
-    if (paintings.length === 0 || currentPaintingIndex >= paintings.length) {
-        console.log("No more paintings found.");
-        return {};
-    }
-
-    return paintings[currentPaintingIndex];
-}
-
-function displayPainting(index) {
-    if (!artData) {
-        console.log("Art data not fetched yet.");
-        return;
-    }
-
-    const paintings = filterPaintings(artData);
-
-    if (paintings.length === 0 || index >= paintings.length) {
-        console.log("No more paintings found.");
-        return;
-    }
-
-    const currentPainting = paintings[index];
-    const title = currentPainting.title;
-    const artist = currentPainting.artist_display;
-    const date = currentPainting.date_display;
-    const artId = currentPainting.image_id;
-    const artUrl = `https://www.artic.edu/iiif/2/${artId}/full/843,/0/default.jpg`;
-
-    const imageElement = document.createElement("img");
-    imageElement.src = artUrl;
-    imageElement.alt = `${title} by ${artist}`;
-
-    const artworkImageDiv = document.getElementById("artwork-image");
-    artworkImageDiv.innerText = "";
-    artworkImageDiv.appendChild(imageElement);
-
-    const infoDiv = document.createElement("div");
-    infoDiv.innerText = `
-        Title: ${title}
-        Artist: ${artist}
-        Date: ${date}
-    `;
-
-    const artworkInfoDiv = document.getElementById("artwork-info");
-    artworkInfoDiv.innerText = "";
-    artworkInfoDiv.appendChild(infoDiv);
-
-    console.log(`Title: ${title}, Artist: ${artist}, Date: ${date}, Image URL: ${artUrl}`);
-}
-
-async function handleFormSubmit(event) {
-    event.preventDefault();
-    const userInput = document.getElementById("name").value;
-    const currentPainting = await getCurrentPainting();
-    const currentTitle = currentPainting.title;
-
-    if (userInput.toLowerCase() === currentTitle.toLowerCase()) {
-        alert("Correct guess!");
-        currentPaintingIndex++;
-        displayPainting(currentPaintingIndex);
-    } else {
-        alert("Incorrect guess. Try again!");
-    }
-}
-
-const artForm = document.getElementById("artForm");
-artForm.addEventListener("submit", handleFormSubmit);
-
-// Fetch art data and display the first painting on page load
-fetchArtData()
-    .then(data => {
-        artData = data;
-        displayPainting(currentPaintingIndex);
-    })
-    .catch(error => console.error("Error fetching art data:", error));
-
+fetchArtData();
 
 
   /* // script.js
