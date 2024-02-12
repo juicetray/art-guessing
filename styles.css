@@ -17,7 +17,7 @@ body {
 }
 
 img {
-    max-width: 50%; /* Ensure the image doesn't exceed its parent container's width */
+    max-width: 25%; /* Ensure the image doesn't exceed its parent container's width */
     max-height: auto; /* Allow the image to scale proportionally */
     display: block; /* Remove any default inline spacing */
     margin: auto; /* Center the image within its parent container */

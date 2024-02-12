@@ -12,16 +12,20 @@
     <h1>Art Guessing</h1>
 
     <div id="artwork-info">
-        <!-- Artwork details will be displayed here -->
+        <p id="date">Date: </p>
+        <p id="artist">Artist: </p>
+        <p id="title">Title: </p>
     </div>
+    <form id="artForm">
+        <label for="name">Guess the name of the painting:</label>
+        <input type="text" id="name" name="name" placeholder="Name of painting here" />
+        <input type="submit" value="Submit">
+    </form>
     <div id="artwork-image">
         <!-- Artwork image will be displayed here -->
     </div>
     <br>
-    <form id="artForm">
-    <label for="name">Guess the name of the painting:</label>
-    <input type="text" id="name" name="name" placeholder="Name of painting here" />
-    <input type="submit" value="Submit">
-    </form>
+
+
 </body>
 </html>

@@ -1,8 +1,11 @@
+currentPaintingIndex = 0;
+let popularPaintings;
+
 async function fetchArtData() {
   const response = await fetch("https://api.artic.edu/api/v1/artworks?limit=100");
   const art = await response.json()
 
-  const popularPaintings = art.data.filter((artwork) => { 
+  popularPaintings = art.data.filter((artwork) => { 
     return !artwork.has_not_been_viewed_much && artwork.classification_title === "painting"});
   popularPaintings.forEach ((painting) =>
   {
@@ -12,11 +15,22 @@ async function fetchArtData() {
 
     console.log(`Painting: ${artworkTitle} by ${artist}, Created: ${date}`);
 
-    displayPainting(painting);
   })
+  displayPainting(popularPaintings[currentPaintingIndex]);
 }
 
 const displayPainting = (painting) => {
+
+  const artworkInfo = document.getElementById("artwork-info");
+  artworkInfo.textContent = "";
+
+  const artworkImage = document.getElementById("artwork-image");
+  artworkImage.innerHTML = "";
+
+
+
+
+  artworkInfo.textContent = `Title: ${painting.title}\n Artist: ${painting.artist_title}\nDate: ${painting.date_display}`;
 
   const imgDiv = document.createElement("div");
   let paintingId = painting.image_id;
@@ -25,40 +39,31 @@ const displayPainting = (painting) => {
   paintingImg.src = paintingUrl;
 
   imgDiv.appendChild(paintingImg);
-  document.body.append(imgDiv);
+  artworkImage.appendChild(imgDiv);
+
+  const form = document.getElementById("artForm");
+  form.addEventListener("submit", handleSubmit);
+}
+
+const handleSubmit = (event) => {
+  event.preventDefault();
+
+  const guessInput = document.getElementById("name");
+  const guess = guessInput.value.trim();
+
+  const correctTitle = popularPaintings[currentPaintingIndex].title.toLowerCase();
+  if (guess.toLowerCase() === correctTitle) {
+    alert("correct!");
+    currentPaintingIndex++;
+    if(currentPaintingIndex < popularPaintings.length) {
+      displayPainting(popularPaintings[currentPaintingIndex]);
+    } else {
+      alert("You've guessed all the paintings!");
+    }
+  } else {
+    alert("Incorrect! Try again.");
+    guessInput.value = "";
+  }
 }
 
 fetchArtData();
-
-
-  /* // script.js
-
-async function displayArtwork() {
-  const response = await fetch("https://api.artic.edu/api/v1/artworks?page=2&limit=1");
-  const data = await response.json();
-
-  // Access the first artwork in the array
-  const artwork = data.data[0];
-
-  // Access individual properties of the artwork
-  const title = artwork.title;
-  const artist = artwork.artist_display;
-  const date = artwork.date_display;
-
-  // Display artwork information on the page
-  const artworkInfoElement = document.getElementById("artwork-info");
-  artworkInfoElement.innerHTML = `
-    Title: ${title}</p>
-    Artist: ${artist}</p>
-    Date: ${date}</p>
-  `;
-
-  // Display artwork image on the page
-  const artworkImageElement = document.getElementById("artwork-img");
-  artworkImageElement.src = artwork.thumbnail.lqip;
-  artworkImageElement.alt = artwork.thumbnail.alt_text;
-}
-
-// Call the function to display the artwork when the page loads
-displayArtwork();
- */
