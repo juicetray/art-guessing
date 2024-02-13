@@ -1,36 +1,32 @@
-currentPaintingIndex = 0;
+let currentPaintingIndex = 0;
+let currentHintIndex = 0;
 let popularPaintings;
+const hintContainer = document.querySelector(".hint-container");
 
 async function fetchArtData() {
   const response = await fetch("https://api.artic.edu/api/v1/artworks?limit=100");
-  const art = await response.json()
+  const art = await response.json();
 
   popularPaintings = art.data.filter((artwork) => { 
-    return !artwork.has_not_been_viewed_much && artwork.classification_title === "painting"});
-  popularPaintings.forEach ((painting) =>
-  {
+    return !artwork.has_not_been_viewed_much && artwork.classification_title === "painting";
+  });
+
+  popularPaintings.forEach((painting) => {
     const artist = painting.artist_title;
     const artworkTitle = painting.title;
     const date = painting.date_display;
-
     console.log(`Painting: ${artworkTitle} by ${artist}, Created: ${date}`);
+  });
 
-  })
   displayPainting(popularPaintings[currentPaintingIndex]);
 }
 
 const displayPainting = (painting) => {
-
   const artworkInfo = document.getElementById("artwork-info");
   artworkInfo.textContent = "";
 
   const artworkImage = document.getElementById("artwork-image");
   artworkImage.innerHTML = "";
-
-
-
-
-  artworkInfo.textContent = `Title: ${painting.title}\n Artist: ${painting.artist_title}\nDate: ${painting.date_display}`;
 
   const imgDiv = document.createElement("div");
   let paintingId = painting.image_id;
@@ -43,7 +39,10 @@ const displayPainting = (painting) => {
 
   const form = document.getElementById("artForm");
   form.addEventListener("submit", handleSubmit);
-}
+
+  const hintButton = document.getElementById("hintButton");
+  hintButton.addEventListener("click", displayHint);
+};
 
 const handleSubmit = (event) => {
   event.preventDefault();
@@ -53,8 +52,10 @@ const handleSubmit = (event) => {
 
   const correctTitle = popularPaintings[currentPaintingIndex].title.toLowerCase();
   if (guess.toLowerCase() === correctTitle) {
-    alert("correct!");
+    alert("Correct!");
     currentPaintingIndex++;
+    currentHintIndex = 0;
+    hintContainer.textContent = "";
     if(currentPaintingIndex < popularPaintings.length) {
       displayPainting(popularPaintings[currentPaintingIndex]);
     } else {
@@ -64,6 +65,24 @@ const handleSubmit = (event) => {
     alert("Incorrect! Try again.");
     guessInput.value = "";
   }
-}
+};
+
+const displayHint = () => {
+  if (currentHintIndex < 2) {
+    const painting = popularPaintings[currentPaintingIndex];
+    if (currentHintIndex === 0) {
+        const artistSpan = document.createElement("span");
+      artistSpan.textContent = `Artist: ${painting.artist_title}`;
+      hintContainer.appendChild(artistSpan)
+    } else {
+        const dateSpan = document.createElement("span");
+        dateSpan.textContent = `Date: ${painting.date_display}`;
+        hintContainer.appendChild(dateSpan);
+    }
+    currentHintIndex++;
+  } else {
+    alert("No more hints available!");
+  }
+};
 
 fetchArtData();

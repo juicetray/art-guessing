@@ -17,8 +17,13 @@ body {
 }
 
 img {
-    max-width: 25%; /* Ensure the image doesn't exceed its parent container's width */
-    max-height: auto; /* Allow the image to scale proportionally */
-    display: block; /* Remove any default inline spacing */
-    margin: auto; /* Center the image within its parent container */
+    max-width: 25%;
+    max-height: auto; 
+    display: block; 
+    margin: auto; 
+}
+
+.hint-container span {
+  display: block;
+  margin-bottom: 5px; 
 }
