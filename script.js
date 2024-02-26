@@ -1,9 +1,13 @@
+"use strict";
+
 let currentPaintingIndex = 0;
 let currentHintIndex = 0;
 let popularPaintings;
 const hintContainer = document.querySelector(".hint-container");
+const loadingScreen = document.getElementById("loading-screen");
 
 async function fetchArtData() {
+  loadingScreen.style.display = "block";
   const response = await fetch("https://api.artic.edu/api/v1/artworks?limit=100");
   const art = await response.json();
 
@@ -34,13 +38,17 @@ const displayPainting = (painting) => {
   const paintingImg = document.createElement("img");
   paintingImg.src = paintingUrl;
 
+  paintingImg.onload = () => {
+    loadingScreen.style.display = "none";
+  }
+
   imgDiv.appendChild(paintingImg);
   artworkImage.appendChild(imgDiv);
 
   const form = document.getElementById("artForm");
   form.addEventListener("submit", handleSubmit);
 
-  const hintButton = document.getElementById("hintButton");
+  const hintButton = document.getElementById("hint-button");
   hintButton.addEventListener("click", displayHint);
 };
 

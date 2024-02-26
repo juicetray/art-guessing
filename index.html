@@ -4,31 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Art Guessing</title>
+    <title>Guess the painting!</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" async defer></script>
 </head>
 <body>
-    <h1>Art Guessing</h1>
+    <h1 class="title">Guess the painting</h1>
 
+    <div id="loading-screen">
+        <p>Loading...</p>
+    </div>
+    <div id="artwork-image">
+        <!-- Artwork image will be displayed here -->
+    </div>
     <div id="artwork-info">
         <p id="date">Date: </p>
         <p id="artist">Artist: </p>
         <p id="title">Title: </p>
     </div>
     <form id="artForm">
-        <label for="name">Guess the name of the painting:</label>
-        <input type="text" id="name" name="name" placeholder="Name of painting here" />
-        <input type="submit" value="Submit">
+        <label for="name" id="art-name">Painting Name</label>
+        <div class="input-wrapper">
+            <input type="text" id="name" name="name" placeholder="Name here..." />
+        </div>
+        <input type="submit" value="Submit" id="submit-button">
     </form>
-    <button type="button" id="hintButton">Get Hint</button>
+    <button type="button" id="hint-button">Get Hint</button>
     <div class="hint-container">
         <span></span>
         <span></span>
     </div>
-    <div id="artwork-image">
-        <!-- Artwork image will be displayed here -->
-    </div>
+    
     <br>
 </body>
 </html>
