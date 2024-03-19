@@ -5,6 +5,7 @@ let currentHintIndex = 0;
 let popularPaintings;
 const hintContainer = document.querySelector(".hint-container");
 const loadingScreen = document.getElementById("loading-screen");
+const hintButton = document.getElementById("hint-button");
 
 async function fetchArtData() {
   loadingScreen.style.display = "block";

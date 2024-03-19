@@ -15,7 +15,7 @@ body {
   min-height: 100vh;
   line-height: 1;
   text-rendering: optimizeSpeed;
-  background-color: #0a1045;
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
 }
 
 .title, #hintButton, #artForm {
@@ -24,15 +24,38 @@ body {
   justify-content: center;
 }
 
-.title, #date, #artist, #title, #art-name {
-  color: #F5F5DC;
+.title, #date, #artist, #title, #art-name, #loading-screen {
+  color: #F0F0F0;
 }
 
-img {
-    max-width: 25%;
-    max-height: auto; 
-    display: block; 
-    margin: auto; 
+.title {
+  margin-top: 1rem;
+}
+
+#quiz-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(138, 43, 226, 0.3);
+  border-radius: 1rem;
+  max-width: 70%;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+#quiz-container > * {
+  margin: 5rem;
+}
+
+#loading-screen {
+  display: flex;
+ text-align: center;
+  justify-content: center;
+}
+
+#artwork-image img {
+  max-width: 100%;
+  height: auto;
 }
 
 .input-wrapper {
@@ -46,17 +69,30 @@ img {
   margin-top: 10px;
 }
 
+#form-container {
+max-width: 100%;
+width: 100%
+}
+
 #artForm {
   flex-direction: column;
 }
 
 #submit-button {
   font-size: 1.25rem;
-  margin-top: 10px;
+  margin-top: 2rem;
+  width: 100%;
 }
 
 #hint-button {
   font-size: 1.25rem;
+  margin-top: 2rem;
+  width: 100%
+}
+
+.hint-container {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 
