@@ -9,11 +9,18 @@ const hintButton = document.getElementById("hint-button");
 
 async function fetchArtData() {
   loadingScreen.style.display = "block";
-  const response = await fetch("https://api.artic.edu/api/v1/artworks?limit=100");
+  const response = await fetch(
+    "https://api.artic.edu/api/v1/artworks?limit=100"
+  );
   const art = await response.json();
 
-  popularPaintings = art.data.filter((artwork) => { 
-    return !artwork.has_not_been_viewed_much && artwork.classification_title === "painting";
+  console.log(art); // Check the structure of the API response
+
+  popularPaintings = art.data.filter((artwork) => {
+    return (
+      !artwork.has_not_been_viewed_much &&
+      artwork.classification_title === "painting"
+    );
   });
 
   popularPaintings.forEach((painting) => {
@@ -41,12 +48,12 @@ const displayPainting = (painting) => {
 
   paintingImg.onload = () => {
     loadingScreen.style.display = "none";
-  }
+  };
 
   imgDiv.appendChild(paintingImg);
   artworkImage.appendChild(imgDiv);
 
-  const form = document.getElementById("artForm");
+  const form = document.getElementById("art-form");
   form.addEventListener("submit", handleSubmit);
 
   const hintButton = document.getElementById("hint-button");
@@ -59,13 +66,14 @@ const handleSubmit = (event) => {
   const guessInput = document.getElementById("name");
   const guess = guessInput.value.trim();
 
-  const correctTitle = popularPaintings[currentPaintingIndex].title.toLowerCase();
+  const correctTitle =
+    popularPaintings[currentPaintingIndex].title.toLowerCase();
   if (guess.toLowerCase() === correctTitle) {
     alert("Correct!");
     currentPaintingIndex++;
     currentHintIndex = 0;
     hintContainer.textContent = "";
-    if(currentPaintingIndex < popularPaintings.length) {
+    if (currentPaintingIndex < popularPaintings.length) {
       displayPainting(popularPaintings[currentPaintingIndex]);
     } else {
       alert("You've guessed all the paintings!");
@@ -80,13 +88,13 @@ const displayHint = () => {
   if (currentHintIndex < 2) {
     const painting = popularPaintings[currentPaintingIndex];
     if (currentHintIndex === 0) {
-        const artistSpan = document.createElement("span");
+      const artistSpan = document.createElement("span");
       artistSpan.textContent = `Artist: ${painting.artist_title}`;
-      hintContainer.appendChild(artistSpan)
+      hintContainer.appendChild(artistSpan);
     } else {
-        const dateSpan = document.createElement("span");
-        dateSpan.textContent = `Date: ${painting.date_display}`;
-        hintContainer.appendChild(dateSpan);
+      const dateSpan = document.createElement("span");
+      dateSpan.textContent = `Date: ${painting.date_display}`;
+      hintContainer.appendChild(dateSpan);
     }
     currentHintIndex++;
   } else {
