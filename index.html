@@ -1,39 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Guess the painting!</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" async defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <h1 class="title">Guess the painting</h1>
 
     <div id="quiz-container">
-        <div id="loading-screen">
-            <p>Loading...</p>
-        </div>
-        <div id="artwork-image">
-            <!-- Artwork image will be displayed here -->
-        </div>
-        <div id="artwork-info">
-            <p id="date">Date: </p>
-            <p id="artist">Artist: </p>
-            <p id="title">Title: </p>
-        </div>
-        
-            <form id="art-form">
-                <label for="name" id="art-name">Painting Name</label>
-            
-                    <input type="text" id="name" name="name" placeholder="Name here..." />
-            
-                <input type="submit" value="Submit" id="submit-button">
-                <button type="button" id="hint-button">Get Hint</button>
-                <div class="hint-container">
-                </div>
-            </form>
-</body>
-</html>
+      <div id="loading-screen">
+        <p>Loading...</p>
+      </div>
+      <div id="artwork-image">
+        <!-- Artwork image will be displayed here -->
+      </div>
+      <div id="artwork-info">
+        <p id="date">Date:</p>
+        <p id="artist">Artist:</p>
+        <p id="title">Title:</p>
+      </div>
 
+      <form id="art-form">
+        <label for="name" id="art-name">Painting Name</label>
+        <input type="text" id="name" name="name" placeholder="Name here..." />
+        <input type="submit" value="Submit" id="submit-button" />
+        <button type="button" id="hint-button">Get Hint</button>
+        <div class="hint-container"></div>
+      </form>
+    </div>
+  </body>
+</html>

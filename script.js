@@ -1,48 +1,32 @@
 "use strict";
 
 let currentPaintingIndex = 0;
-let currentHintIndex = 0;
 let popularPaintings;
 const hintContainer = document.querySelector(".hint-container");
 const loadingScreen = document.getElementById("loading-screen");
 const hintButton = document.getElementById("hint-button");
+const artworkInfo = document.getElementById("artwork-info");
+const artworkImage = document.getElementById("artwork-image");
+const form = document.getElementById("art-form");
 
 async function fetchArtData() {
   loadingScreen.style.display = "block";
-  const response = await fetch(
-    "https://api.artic.edu/api/v1/artworks?limit=100"
-  );
+  const response = await fetch("https://painting-apik.onrender.com/paintings");
   const art = await response.json();
 
   console.log(art); // Check the structure of the API response
 
-  popularPaintings = art.data.filter((artwork) => {
-    return (
-      !artwork.has_not_been_viewed_much &&
-      artwork.classification_title === "painting"
-    );
-  });
-
-  popularPaintings.forEach((painting) => {
-    const artist = painting.artist_title;
-    const artworkTitle = painting.title;
-    const date = painting.date_display;
-    console.log(`Painting: ${artworkTitle} by ${artist}, Created: ${date}`);
-  });
+  popularPaintings = art;
 
   displayPainting(popularPaintings[currentPaintingIndex]);
 }
 
 const displayPainting = (painting) => {
-  const artworkInfo = document.getElementById("artwork-info");
   artworkInfo.textContent = "";
-
-  const artworkImage = document.getElementById("artwork-image");
   artworkImage.innerHTML = "";
 
   const imgDiv = document.createElement("div");
-  let paintingId = painting.image_id;
-  const paintingUrl = `https://www.artic.edu/iiif/2/${paintingId}/full/843,/0/default.jpg`;
+  const paintingUrl = painting.imageUrl;
   const paintingImg = document.createElement("img");
   paintingImg.src = paintingUrl;
 
@@ -53,11 +37,11 @@ const displayPainting = (painting) => {
   imgDiv.appendChild(paintingImg);
   artworkImage.appendChild(imgDiv);
 
-  const form = document.getElementById("art-form");
-  form.addEventListener("submit", handleSubmit);
+  form.removeEventListener("submit", handleSubmit); // Remove previous listener
+  form.addEventListener("submit", handleSubmit); // Add event listener
 
-  const hintButton = document.getElementById("hint-button");
-  hintButton.addEventListener("click", displayHint);
+  hintButton.removeEventListener("click", displayHint); // Remove previous listener
+  hintButton.addEventListener("click", displayHint); // Add event listener
 };
 
 const handleSubmit = (event) => {
@@ -66,13 +50,10 @@ const handleSubmit = (event) => {
   const guessInput = document.getElementById("name");
   const guess = guessInput.value.trim();
 
-  const correctTitle =
-    popularPaintings[currentPaintingIndex].title.toLowerCase();
-  if (guess.toLowerCase() === correctTitle) {
+  const correctTitle = popularPaintings[currentPaintingIndex].title;
+  if (guess.toLowerCase() === correctTitle.toLowerCase()) {
     alert("Correct!");
     currentPaintingIndex++;
-    currentHintIndex = 0;
-    hintContainer.textContent = "";
     if (currentPaintingIndex < popularPaintings.length) {
       displayPainting(popularPaintings[currentPaintingIndex]);
     } else {
@@ -85,21 +66,16 @@ const handleSubmit = (event) => {
 };
 
 const displayHint = () => {
-  if (currentHintIndex < 2) {
-    const painting = popularPaintings[currentPaintingIndex];
-    if (currentHintIndex === 0) {
-      const artistSpan = document.createElement("span");
-      artistSpan.textContent = `Artist: ${painting.artist_title}`;
-      hintContainer.appendChild(artistSpan);
-    } else {
-      const dateSpan = document.createElement("span");
-      dateSpan.textContent = `Date: ${painting.date_display}`;
-      hintContainer.appendChild(dateSpan);
-    }
-    currentHintIndex++;
-  } else {
-    alert("No more hints available!");
-  }
+  const painting = popularPaintings[currentPaintingIndex];
+  const artistSpan = document.createElement("span");
+  artistSpan.textContent = `Artist: ${painting.artist}`;
+  hintContainer.appendChild(artistSpan);
+
+  const yearSpan = document.createElement("span");
+  yearSpan.textContent = `Year: ${painting.year}`;
+  hintContainer.appendChild(yearSpan);
+
+  hintButton.disabled = true;
 };
 
 fetchArtData();
