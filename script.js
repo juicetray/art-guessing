@@ -14,7 +14,7 @@ async function fetchArtData() {
   const response = await fetch("https://painting-apik.onrender.com/paintings");
   const art = await response.json();
 
-  console.log(art); // Check the structure of the API response
+  console.log(art);
 
   popularPaintings = art;
 
@@ -37,11 +37,11 @@ const displayPainting = (painting) => {
   imgDiv.appendChild(paintingImg);
   artworkImage.appendChild(imgDiv);
 
-  form.removeEventListener("submit", handleSubmit); // Remove previous listener
-  form.addEventListener("submit", handleSubmit); // Add event listener
+  form.removeEventListener("submit", handleSubmit);
+  form.addEventListener("submit", handleSubmit);
 
-  hintButton.removeEventListener("click", displayHint); // Remove previous listener
-  hintButton.addEventListener("click", displayHint); // Add event listener
+  hintButton.removeEventListener("click", displayHint);
+  hintButton.addEventListener("click", displayHint);
 };
 
 const handleSubmit = (event) => {
@@ -59,6 +59,11 @@ const handleSubmit = (event) => {
     } else {
       alert("You've guessed all the paintings!");
     }
+
+    // Reset hint button
+    hintButton.textContent = "Get Hint";
+    hintButton.disabled = false;
+    hintContainer.innerHTML = "";
   } else {
     alert("Incorrect! Try again.");
     guessInput.value = "";
@@ -67,15 +72,18 @@ const handleSubmit = (event) => {
 
 const displayHint = () => {
   const painting = popularPaintings[currentPaintingIndex];
-  const artistSpan = document.createElement("span");
-  artistSpan.textContent = `Artist: ${painting.artist}`;
-  hintContainer.appendChild(artistSpan);
+  if (hintContainer.children.length >= 2) {
+    hintButton.textContent = "No more hints";
+    hintButton.disabled = true;
+  } else {
+    const artistSpan = document.createElement("span");
+    artistSpan.textContent = `Artist: ${painting.artist}`;
+    hintContainer.appendChild(artistSpan);
 
-  const yearSpan = document.createElement("span");
-  yearSpan.textContent = `Year: ${painting.year}`;
-  hintContainer.appendChild(yearSpan);
-
-  hintButton.disabled = true;
+    const yearSpan = document.createElement("span");
+    yearSpan.textContent = `Year: ${painting.year}`;
+    hintContainer.appendChild(yearSpan);
+  }
 };
 
 fetchArtData();
