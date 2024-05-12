@@ -14,8 +14,6 @@ async function fetchArtData() {
   const response = await fetch("https://painting-apik.onrender.com/paintings");
   const art = await response.json();
 
-  console.log(art);
-
   popularPaintings = art;
 
   displayPainting(popularPaintings[currentPaintingIndex]);
@@ -60,7 +58,6 @@ const handleSubmit = (event) => {
       alert("You've guessed all the paintings!");
     }
 
-    // Reset hint button
     hintButton.textContent = "Get Hint";
     hintButton.disabled = false;
     hintContainer.innerHTML = "";
