@@ -25,8 +25,10 @@ const displayPainting = (painting) => {
 
   const imgDiv = document.createElement("div");
   const paintingUrl = painting.imageUrl;
+  const paintingAlt = painting.alt;
   const paintingImg = document.createElement("img");
   paintingImg.src = paintingUrl;
+  paintingImg.alt = paintingAlt;
 
   paintingImg.onload = () => {
     loadingScreen.style.display = "none";
