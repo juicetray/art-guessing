@@ -8,6 +8,10 @@ const hintButton = document.getElementById("hint-button");
 const artworkInfo = document.getElementById("artwork-info");
 const artworkImage = document.getElementById("artwork-image");
 const form = document.getElementById("art-form");
+const successMessage = document.createElement("div");
+
+successMessage.id = "success-message";
+document.getElementById("quiz-container").appendChild(successMessage);
 
 async function fetchArtData() {
   loadingScreen.style.display = "block";
@@ -15,8 +19,16 @@ async function fetchArtData() {
   const art = await response.json();
 
   popularPaintings = art;
+  shuffleArray(popularPaintings);
 
   displayPainting(popularPaintings[currentPaintingIndex]);
+}
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
 }
 
 const displayPainting = (painting) => {
@@ -52,19 +64,19 @@ const handleSubmit = (event) => {
 
   const correctTitle = popularPaintings[currentPaintingIndex].title;
   if (guess.toLowerCase() === correctTitle.toLowerCase()) {
-    alert("Correct!");
+    successMessage.textContent = "Correct! You guessed the painting!";
     currentPaintingIndex++;
     if (currentPaintingIndex < popularPaintings.length) {
       displayPainting(popularPaintings[currentPaintingIndex]);
     } else {
-      alert("You've guessed all the paintings!");
+      successMessage.textContent = "You've guessed all the paintings!";
     }
 
     hintButton.textContent = "Get Hint";
     hintButton.disabled = false;
     hintContainer.innerHTML = "";
   } else {
-    alert("Incorrect! Try again.");
+    successMessage.textContent = "Incorrect! Try again.";
     guessInput.value = "";
   }
 };

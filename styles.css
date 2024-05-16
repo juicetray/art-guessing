@@ -1,5 +1,6 @@
-* :: before,
-* :: after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -13,7 +14,6 @@ body {
 
 .title {
   text-align: center;
-  color: #a6549e;
 }
 
 #quiz-container {
@@ -22,8 +22,8 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  max-width: 20%;
-  margin: 0 auto;
+  max-width: 22%;
+  margin: 2% auto;
   border-radius: 0.75em;
   padding: 2em;
 }
@@ -40,31 +40,73 @@ body {
 }
 
 #art-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 1em;
 }
 
+#art-form label,
+#art-form input,
+#art-form button {
+  width: 100%;
+  margin: 0.5em 0;
+}
+
+form input[type="text"] {
+  padding: 0.5em;
+  border-radius: 0.2em;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+form input[type="submit"],
 form button {
   font-size: 1.25rem;
-  margin-top: 2rem;
-  width: 100%;
+  padding: 0.5em 1em;
+  margin-top: 1em;
   border-radius: 0.2rem;
-  background-color: #9cbae6;
   border: 2px solid transparent;
   background: radial-gradient(
     circle,
     rgba(238, 174, 202, 1) 0%,
     rgba(148, 187, 233, 1) 100%
   );
+  color: #fff;
+  cursor: pointer;
   position: relative;
   overflow: hidden;
+  transition: background 0.3s, transform 0.2s;
 }
 
+form input[type="submit"]:hover,
 form button:hover {
   background: radial-gradient(
     circle,
     rgba(238, 174, 202, 0.8) 0%,
     rgba(148, 187, 233, 0.8) 100%
   );
+}
+
+form button::after,
+form input[type="submit"]::after {
+  content: "";
+  position: absolute;
+  width: 300%;
+  height: 300%;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.5s, opacity 1s;
+}
+
+form button:active::after,
+form input[type="submit"]:active::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0;
 }
 
 .hint-container span {
