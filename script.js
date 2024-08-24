@@ -1,17 +1,25 @@
 "use strict";
 
+document.getElementById("start-button").addEventListener("click", function () {
+  document.querySelector(".intro").style.display = "none";
+  document.querySelector(".quiz-container").style.display = "flex";
+});
+
 let currentPaintingIndex = 0;
 let popularPaintings;
+let counter = 0;
+
 const hintContainer = document.querySelector(".hint-container");
 const loadingScreen = document.getElementById("loading-screen");
 const hintButton = document.getElementById("hint-button");
 const artworkInfo = document.getElementById("artwork-info");
 const artworkImage = document.getElementById("artwork-image");
+const counterValue = document.getElementById("counter-value");
 const form = document.getElementById("art-form");
-const successMessage = document.createElement("div");
 
+const successMessage = document.createElement("div");
 successMessage.id = "success-message";
-document.getElementById("quiz-container").appendChild(successMessage);
+document.querySelector(".quiz-container").appendChild(successMessage);
 
 async function fetchArtData() {
   loadingScreen.style.display = "block";
@@ -36,14 +44,21 @@ const displayPainting = (painting) => {
   artworkImage.innerHTML = "";
 
   const imgDiv = document.createElement("div");
-  const paintingUrl = painting.imageUrl;
-  const paintingAlt = painting.alt;
   const paintingImg = document.createElement("img");
-  paintingImg.src = paintingUrl;
-  paintingImg.alt = paintingAlt;
 
+  paintingImg.src = painting.imageUrl;
+  paintingImg.alt = painting.alt;
+
+  // When the image loads, determine its orientation
   paintingImg.onload = () => {
     loadingScreen.style.display = "none";
+
+    // Check orientation: landscape or portrait
+    if (paintingImg.naturalWidth > paintingImg.naturalHeight) {
+      imgDiv.classList.add("landscape");
+    } else {
+      imgDiv.classList.add("portrait");
+    }
   };
 
   imgDiv.appendChild(paintingImg);
@@ -66,6 +81,8 @@ const handleSubmit = (event) => {
   if (guess.toLowerCase() === correctTitle.toLowerCase()) {
     successMessage.textContent = "Correct! You guessed the painting!";
     currentPaintingIndex++;
+    counter++;
+    counterValue.textContent = counter;
     if (currentPaintingIndex < popularPaintings.length) {
       displayPainting(popularPaintings[currentPaintingIndex]);
     } else {

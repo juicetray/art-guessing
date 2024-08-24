@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -13,9 +13,12 @@
     <script src="script.js" async defer></script>
   </head>
   <body>
-    <h1 class="title">Guess the painting!</h1>
+    <div class="intro">
+      <h1 class="fade-in">Guess That Painting</h1>
+      <button id="start-button" class="fade-in">Start</button>
+    </div>
 
-    <div id="quiz-container">
+    <div class="quiz-container hidden">
       <div id="loading-screen" role="alert" aria-live="assertive">
         <p>Loading...</p>
       </div>
@@ -48,6 +51,9 @@
           class="hint-container"
           aria-live="polite"
         ></div>
+        <div class="counter">
+          <div id="counter-value">0</div>
+        </div>
       </form>
     </div>
   </body>
