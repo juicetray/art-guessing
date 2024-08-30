@@ -44,24 +44,34 @@ const displayPainting = (painting) => {
   artworkImage.innerHTML = "";
 
   const imgDiv = document.createElement("div");
-  const paintingImg = document.createElement("img");
 
-  paintingImg.src = painting.imageUrl;
-  paintingImg.alt = painting.alt;
 
-  // When the image loads, determine its orientation
-  paintingImg.onload = () => {
+  const picture = document.createElement("picture");
+
+  const sourceSmall = document.createElement("source");
+  sourceSmall.srcset = painting.images.small;
+  sourceSmall.media = "(max-width: 480px)";
+
+
+  const sourceMedium = document.createElement("source");
+  sourceMedium.srcset = painting.images.medium;
+  sourceMedium.media = "(max-width: 800px)";
+
+
+  const img = document.createElement("img");
+  img.src = painting.images.large;
+  img.alt = painting.alt;
+
+  // Hide the loading screen when the image is fully loaded
+  img.onload = () => {
     loadingScreen.style.display = "none";
-
-    // Check orientation: landscape or portrait
-    if (paintingImg.naturalWidth > paintingImg.naturalHeight) {
-      imgDiv.classList.add("landscape");
-    } else {
-      imgDiv.classList.add("portrait");
-    }
   };
 
-  imgDiv.appendChild(paintingImg);
+  picture.appendChild(sourceSmall);
+  picture.appendChild(sourceMedium);
+  picture.appendChild(img);
+
+  imgDiv.appendChild(picture);
   artworkImage.appendChild(imgDiv);
 
   form.removeEventListener("submit", handleSubmit);
@@ -83,6 +93,7 @@ const handleSubmit = (event) => {
     currentPaintingIndex++;
     counter++;
     counterValue.textContent = counter;
+
     if (currentPaintingIndex < popularPaintings.length) {
       displayPainting(popularPaintings[currentPaintingIndex]);
     } else {
