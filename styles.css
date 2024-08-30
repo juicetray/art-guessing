@@ -145,7 +145,7 @@ input[type="submit"],
 @media (max-width: 480px) {
 
   .quiz-container {
-    max-width: 750%;
+    max-width: 75%;
   }
   
   #artwork-image {
