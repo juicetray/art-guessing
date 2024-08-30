@@ -143,6 +143,11 @@ input[type="submit"],
 }
 
 @media (max-width: 480px) {
+
+  .quiz-container {
+    max-width: 750%;
+  }
+  
   #artwork-image {
     width: 100%;
   }
