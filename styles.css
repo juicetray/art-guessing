@@ -60,12 +60,8 @@ body {
   border-radius: 0.75em;
   padding: 2em;
   background-color: #9b9fc7;
-  color: #a0a2ab;
+  color: black;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#artwork-info p {
-  color: #a0a2ab;
 }
 
 form {
@@ -115,16 +111,21 @@ input[type="submit"],
 
 #artwork-image {
   width: 100%;
-  height: 100%;
+  height: auto; 
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
 }
 
-#artwork-image img {
+#artwork-image picture {
   width: 100%;
-  height: 100%;
+  height: 100%; 
+  display: flex; 
+}
+
+#artwork-image picture img {
+  width: 100%;
+  height: 100%; 
   object-fit: contain;
 }
 
@@ -139,4 +140,15 @@ input[type="submit"],
 .landscape {
   max-width: 100%;
   max-height: 50rem;
+}
+
+@media (max-width: 480px) {
+  #artwork-image {
+    width: 100%;
+  }
+
+  #artwork-image img {
+    max-width: 300px;
+    height: auto; 
+  }
 }

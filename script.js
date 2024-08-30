@@ -43,10 +43,11 @@ const displayPainting = (painting) => {
   artworkInfo.textContent = "";
   artworkImage.innerHTML = "";
 
-  const imgDiv = document.createElement("div");
-
 
   const picture = document.createElement("picture");
+  picture.style.width = '100%'; 
+  picture.style.height = '100%'; 
+
 
   const sourceSmall = document.createElement("source");
   sourceSmall.srcset = painting.images.small;
@@ -62,7 +63,6 @@ const displayPainting = (painting) => {
   img.src = painting.images.large;
   img.alt = painting.alt;
 
-  // Hide the loading screen when the image is fully loaded
   img.onload = () => {
     loadingScreen.style.display = "none";
   };
@@ -71,8 +71,8 @@ const displayPainting = (painting) => {
   picture.appendChild(sourceMedium);
   picture.appendChild(img);
 
-  imgDiv.appendChild(picture);
-  artworkImage.appendChild(imgDiv);
+
+  artworkImage.appendChild(picture);
 
   form.removeEventListener("submit", handleSubmit);
   form.addEventListener("submit", handleSubmit);
