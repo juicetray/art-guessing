@@ -59,12 +59,16 @@ movementGrid.forEach((grid) => {
 movementButtons.forEach((button) => {
   button.addEventListener("click", () => {
     selectedMovement = button.id;
-    fetchArtData(selectedMovement); // Fetching painting data and starting quiz
+
+    console.log("Selected movement:", selectedMovement);
+    const startTime = performance.now();
+
+    fetchArtData(selectedMovement, startTime); // Fetching painting data and starting quiz
   });
 });
 
 // Get data of paintings
-async function fetchArtData(selectedMovement) {
+async function fetchArtData(selectedMovement, startTime) {
   if (!selectedMovement) {
     console.warn("No movement selected.");
     return;
@@ -75,6 +79,9 @@ async function fetchArtData(selectedMovement) {
   try {
     const response = await fetch("https://painting-apik.onrender.com/paintings");
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+    const apiTime = performance.now();
+    console.log(`API response time: ${(apiTime - startTime).toFixed(2)} ms`);
 
     const art = await response.json();
     paintings = art.filter(
@@ -105,14 +112,14 @@ function shuffleArray(array) {
   }
 }
 
-function startQuiz() {
+function startQuiz(startTime) {
   document.querySelector(".quiz-selection").style.display = "none";
   document.querySelector(".quiz-container").style.display = "block";
-  displayPainting(paintings[currentPaintingIndex]);
+  displayPainting(paintings[currentPaintingIndex], startTime);
 }
 
 
-function displayPainting(painting) {
+function displayPainting(painting, startTime) {
   // Reset artwork container and loading state
   artworkInfo.textContent = "";
   artworkImage.innerHTML = "";
@@ -138,6 +145,9 @@ function displayPainting(painting) {
   // Hiding the loading text after the paintings have loaded
   img.onload = () => {
     loadingScreen.style.display = "none";
+
+    const endTime = performance.now();
+    console.log(`Total time to load painting: ${(endTime - startTime).toFixed(2)} ms`);
   };
 
   // Catch error for paintings failing to load
