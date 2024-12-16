@@ -59,6 +59,89 @@ body {
   animation: fadeIn 2s ease-in-out forwards;
 }
 
+.quiz-selection {
+  display: flex;
+  flex-direction: column; 
+  gap: 10px; 
+}
+
+.quiz-selection h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #4169E0;
+}
+
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.card-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  width: 18rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.card-item:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.movement-title {
+  color: #4169E0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.movement-info {
+  color: #14110B;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.movement-info.hidden,
+.card-item button.hidden {
+  display: none;
+}
+
+.card-item:hover .movement-info,
+.card-item:hover button {
+  display: block;
+}
+
+.card-item button {
+  padding: 0.5rem 1rem;
+  background-color: #4169E0;
+  color: #f0ece2;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.card-item button:hover {
+  background-color: #2D4DBF;
+  transform: scale(1.05);
+}
+
 .quiz-container {
   display: flex;
   justify-content: center;
@@ -147,24 +230,22 @@ input[type="submit"]:focus,
 }
 
 #artwork-image {
-  width: 100%;
-  height: auto; 
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-#artwork-image picture {
-  width: 100%;
-  height: 100%; 
-  display: flex; 
+  max-width: 90%;
+  max-height: 70vh;
+  margin: auto;
+  margin-bottom: 2rem; /* Adds space below the painting */
 }
 
 #artwork-image picture img {
   width: 100%;
-  height: 100%; 
-  object-fit: contain;
+  height: auto; /* Keeps the aspect ratio intact */
+  object-fit: contain; /* Ensures the image fits within the container */
+  display: block;
 }
+
 
 #success-message {
   color: #14110b;
@@ -179,29 +260,18 @@ input[type="submit"]:focus,
   max-height: 50rem;
 }
 
-@media (min-width: 481px) and (max-width: 772px ) {
+@media (min-width: 481px) and (max-width: 958px ) {
   .quiz-container {
-    max-width: 40%;
-  }
-  
-  #artwork-image {
-    width: 100%;
-    height: auto; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  #artwork-image picture {
-    width: 100%;
-    height: 100%; 
-    display: flex; 
+    max-width: 60%;
   }
   
   #artwork-image picture img {
     width: 100%;
     height: 100%; 
     object-fit: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   #start-button,
@@ -233,7 +303,7 @@ input[type="submit"]:focus,
     align-items: center;
   }
   
-  #artwork-image picture {
+  /*#artwork-image picture {
     width: 100%;
     height: 100%; 
     display: flex; 
@@ -244,7 +314,7 @@ input[type="submit"]:focus,
     height: 100%; 
     object-fit: contain;
   }
-
+*/
   #start-button,
   #submit-button,
   #hint-button {
