@@ -60,12 +60,9 @@ movementGrid.forEach((grid) => {
 movementButtons.forEach((button) => {
   button.addEventListener("click", () => {
     selectedMovement = button.id;
-
-    const startTime = performance.now();
-    fetchArtData(selectedMovement, startTime);
+    fetchArtData(selectedMovement); // Fetching painting data and starting quiz
   });
 });
-
 
 // Get data of paintings
 async function fetchArtData(selectedMovement) {
@@ -107,15 +104,14 @@ function shuffleArray(array) {
   }
 }
 
-function startQuiz(startTime) {
+function startQuiz() {
   document.querySelector(".quiz-selection").style.display = "none";
   document.querySelector(".quiz-container").style.display = "block";
-  quitButton.classList.remove('hidden');
-  displayPainting(paintings[currentPaintingIndex], startTime);
+  quitButton.classList.remove("hidden");
+  displayPainting(paintings[currentPaintingIndex]);
 }
 
-
-function displayPainting(painting, startTime) {
+function displayPainting(painting) {
   // Reset artwork container and loading state
   artworkInfo.textContent = "";
   artworkImage.innerHTML = "";
@@ -141,9 +137,6 @@ function displayPainting(painting, startTime) {
   // Hiding the loading text after the paintings have loaded
   img.onload = () => {
     loadingScreen.style.display = "none";
-
-    const endTime = performance.now();
-    console.log(`Total time to load painting: ${(endTime - startTime).toFixed(2)} ms`);
   };
 
   // Catch error for paintings failing to load
@@ -167,7 +160,6 @@ function displayPainting(painting, startTime) {
   hintButton.removeEventListener("click", displayHint);
   hintButton.addEventListener("click", displayHint);
 }
-
 
 // Submission handler
 function handleSubmit(event) {
