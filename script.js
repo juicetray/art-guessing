@@ -22,6 +22,8 @@ let selectedMovement;
 let currentPaintingIndex = 0;
 let paintings = [];
 let counter = 0;
+let hintIndex = 0;
+let hintsExhausted = false;
 
 // Event Listeners
 startButton.addEventListener("click", () => {
@@ -112,10 +114,14 @@ function startQuiz() {
 }
 
 function displayPainting(painting) {
-  // Reset artwork container and loading state
+  // Reset artwork container, loading state, and hints
   artworkInfo.textContent = "";
   artworkImage.innerHTML = "";
   loadingScreen.style.display = "block"; // Show loading text
+  hintContainer.textContent = ""; // Reset hints
+  hintIndex = 0; // Reset hint index
+  hintsExhausted = false; // Reset hints exhausted state
+  hintButton.disabled = false; // Enable hint button
 
   // <picture> element for responsive images
   const picture = document.createElement("picture");
@@ -165,16 +171,16 @@ function displayPainting(painting) {
 function handleSubmit(event) {
   event.preventDefault();
   const guessInput = document.getElementById("name").value.trim();
-  const correctTitle = paintings[currentPaintingIndex].title;
+  const correctAnswer = paintings[currentPaintingIndex].artist;
 
-  if (guessInput.toLowerCase() === correctTitle.toLowerCase()) {
-    successMessage.textContent = "Correct! You guessed the painting!";
+  if (guessInput.toLowerCase() === correctAnswer.toLowerCase()) {
+    successMessage.textContent = "Correct! You guessed the artist!";
     counterValue.textContent = ++counter;
 
     if (++currentPaintingIndex < paintings.length) {
       displayPainting(paintings[currentPaintingIndex]);
     } else {
-      successMessage.textContent = "You've guessed all the paintings!";
+      successMessage.textContent = "You've guessed all the artists!";
     }
   } else {
     successMessage.textContent = "Incorrect! Try again.";
@@ -183,8 +189,28 @@ function handleSubmit(event) {
 
 // Hint function
 function displayHint() {
+  if (hintsExhausted) return; // Prevent further hints
+
   const currentPainting = paintings[currentPaintingIndex];
-  hintContainer.textContent = currentPainting.hint || "No hint available.";
+  const titleWords = currentPainting.title;
+
+  if (hintIndex === 0) {
+    const yearHint = document.createElement("p");
+    yearHint.textContent = `Year: ${currentPainting.year}`;
+    hintContainer.appendChild(yearHint);
+  } else if (hintIndex === 1) {
+    const titleHint = document.createElement("p");
+    titleHint.textContent = `Title: ${titleWords}`;
+    hintContainer.appendChild(titleHint);
+  } else {
+    const noMoreHints = document.createElement("p");
+    noMoreHints.textContent = "No more hints available.";
+    hintContainer.appendChild(noMoreHints);
+    hintsExhausted = true; // Mark hints as exhausted
+    hintButton.disabled = true; // Disable hint button
+  }
+
+  hintIndex++;
 }
 
 quitButton.addEventListener("click", () => {
