@@ -218,5 +218,6 @@ quitButton.addEventListener("click", () => {
   document.querySelector(".quiz-container").style.display = "none";
   document.querySelector(".intro").style.display = "block";
   counterValue.textContent = "0"; // Reset the counter
+  successMessage.textContent = "";
   alert("You have exited the quiz.");
 });
