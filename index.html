@@ -13,98 +13,177 @@
     <script src="script.js" async defer></script>
   </head>
   <body>
-    <div class="intro">
-      <h2 class="fade-in">Guess That Painting</h2>
-      <button id="start-button" class="fade-in">Start</button>
-    </div>
-
-    <div class="quiz-selection hidden">
-      <h1>Hover to learn about an art movement before selection</h1>
-      <div class="card-container">
-        <div class="card-item">
-          <p class="movement-title">Post-Impressionism</p>
-          <p class="movement-info hidden">The Modern Art movement emerged in the late 19th and early 20th centuries, 
-            characterized by a break from traditional techniques and a focus on innovation, 
-            abstraction, and self-expression.</p>
-            <button type="button" id="post-impressionism" class="hidden movement-button">Select</button>
-        </div>
-        <div class="card-item">
-          <p class="movement-title">Impressionism</p>
-          <p class="movement-info hidden">Impressionism, emerging in the late 19th century, focused on capturing fleeting 
-            moments and the effects of light and color in everyday scenes. Painters like Monet 
-            and Degas used loose brushstrokes and vibrant palettes to create works that felt 
-            immediate and atmospheric.</p>
-            <button type="button" id="impressionism" class="hidden movement-button">Select</button>
-        </div>
-        <div class="card-item">
-          <p class="movement-title">Baroque</p>
-          <p class="movement-info hidden">Baroque art, flourishing in the 17th century, is known for its dramatic flair, grandeur, 
-            and emotional intensity. Paintings by artists like Caravaggio and Rembrandt often feature 
-            dynamic compositions, strong contrasts of light and shadow, and an emphasis on storytelling.</p>
-            <button type="button" id="baroque" class="hidden movement-button">Select</button>
-        </div>
-        <div class="card-item">
-          <p class="movement-title">Renaissance</p>
-          <p class="movement-info hidden">The Renaissance, spanning the 14th to 17th centuries, marked a rebirth of classical ideals in art, 
-            emphasizing realism, proportion, and perspective. Masters like Michelangelo and Leonardo da Vinci 
-            created iconic works that celebrated human achievement and divine beauty.</p>
-            <button type="button" id="renaissance" class="hidden movement-button">Select</button>
-        </div>
-        <div class="card-item">
-          <p class="movement-title">Surrealism</p>
-          <p class="movement-info hidden">Surrealism, originating in the early 20th century, sought to unlock the unconscious mind through 
-            dreamlike and often bizarre imagery. Artists like Salvador Dalí and René Magritte created fantastical 
-            works that challenged perceptions of reality and explored the mysteries of the human psyche.</p>
-            <button type="button" id="surrealism" class="hidden movement-button">Select</button>
-        </div>
-        <div class="card-item">
-          <p class="movement-title">Neo-Classical</p>
-          <p class="movement-info hidden">Neo-Classical art, popular in the late 18th and early 19th centuries, drew inspiration from ancient 
-            Greece and Rome, emphasizing order, harmony, and restrained emotion. Artists like Jacques-Louis David 
-            used clean lines and classical themes to convey moral and political ideals.</p>
-            <button type="button" id="neo-classical" class="hidden movement-button">Select</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="quiz-container hidden">
-      <div id="loading-screen" role="alert" aria-live="assertive">
-        <p>Loading...</p>
-      </div>
-      <figure id="artwork-image"></figure>
-      <section id="artwork-info" aria-live="polite">
-        <p id="date"><strong>Date:</strong> <span></span></p>
-        <p id="artist"><strong>Artist:</strong> <span></span></p>
-        <p id="title"><strong>Title:</strong> <span></span></p>
-      </section>
-
-      <form id="art-form" aria-describedby="hint-description">
-        <label for="name" id="art-name">Painting Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Name here..."
-          aria-required="true"
-        /><br />
-        <input type="submit" value="Submit" id="submit-button" />
-        <button
-          type="button"
-          id="hint-button"
-          aria-describedby="hint-description"
-        >
-          Get Hint
+    <header>
+      <h1 class="fade-in">Guess That Painting</h1>
+    </header>
+    <main>
+      <!-- Intro Screen -->
+      <div class="intro" aria-hidden="false">
+        <button id="start-button" aria-label="Start the game" class="fade-in">
+          Start
         </button>
-        <div
-          id="hint-description"
-          class="hint-container"
-          aria-live="polite"
-        ></div>
-        <button type="button" id="quit-button" class="quit-button hidden">Quit</button>
-        <div class="counter">
-          <div id="counter-value">0</div>
+      </div>
+
+      <!-- Quiz Selection Screen -->
+      <div class="quiz-selection hidden" aria-hidden="true">
+        <h1>Select an Art Movement</h1>
+        <div class="card-container">
+          <div class="card-item">
+            <h2 class="movement-title">Post-Impressionism</h2>
+            <p class="movement-info hidden">
+              The Modern Art movement emerged in the late 19th and early 20th
+              centuries, characterized by a break from traditional techniques
+              and a focus on innovation, abstraction, and self-expression.
+            </p>
+            <button
+              type="button"
+              id="post-impressionism"
+              class="hidden movement-button"
+              aria-label="Select Post-Impressionism"
+            >
+              Select
+            </button>
+          </div>
+          <div class="card-item">
+            <h2 class="movement-title">Impressionism</h2>
+            <p class="movement-info hidden">
+              Impressionism, emerging in the late 19th century, focused on
+              capturing fleeting moments and the effects of light and color in
+              everyday scenes. Painters like Monet and Degas used loose
+              brushstrokes and vibrant palettes to create works that felt
+              immediate and atmospheric.
+            </p>
+            <button
+              type="button"
+              id="impressionism"
+              class="hidden movement-button"
+              aria-label="Select Impressionism"
+            >
+              Select
+            </button>
+          </div>
+          <div class="card-item">
+            <h2 class="movement-title">Baroque</h2>
+            <p class="movement-info hidden">
+              Baroque art, flourishing in the 17th century, is known for its
+              dramatic flair, grandeur, and emotional intensity. Paintings by
+              artists like Caravaggio and Rembrandt often feature dynamic
+              compositions, strong contrasts of light and shadow, and an
+              emphasis on storytelling.
+            </p>
+            <button
+              type="button"
+              id="baroque"
+              class="hidden movement-button"
+              aria-label="Select Baroque"
+            >
+              Select
+            </button>
+          </div>
+          <div class="card-item">
+            <h2 class="movement-title">Renaissance</h2>
+            <p class="movement-info hidden">
+              The Renaissance, spanning the 14th to 17th centuries, marked a
+              rebirth of classical ideals in art, emphasizing realism,
+              proportion, and perspective. Masters like Michelangelo and
+              Leonardo da Vinci created iconic works that celebrated human
+              achievement and divine beauty.
+            </p>
+            <button
+              type="button"
+              id="renaissance"
+              class="hidden movement-button"
+              aria-label="Select Renaissance"
+            >
+              Select
+            </button>
+          </div>
+          <div class="card-item">
+            <h2 class="movement-title">Surrealism</h2>
+            <p class="movement-info hidden">
+              Surrealism, originating in the early 20th century, sought to
+              unlock the unconscious mind through dreamlike and often bizarre
+              imagery. Artists like Salvador Dalí and René Magritte created
+              fantastical works that challenged perceptions of reality and
+              explored the mysteries of the human psyche.
+            </p>
+            <button
+              type="button"
+              id="surrealism"
+              class="hidden movement-button"
+              aria-label="Select Surrealism"
+            >
+              Select
+            </button>
+          </div>
+          <div class="card-item">
+            <h2 class="movement-title">Neo-Classical</h2>
+            <p class="movement-info hidden">
+              Neo-Classical art, popular in the late 18th and early 19th
+              centuries, drew inspiration from ancient Greece and Rome,
+              emphasizing order, harmony, and restrained emotion. Artists like
+              Jacques-Louis David used clean lines and classical themes to
+              convey moral and political ideals.
+            </p>
+            <button
+              type="button"
+              id="neo-classical"
+              class="hidden movement-button"
+              aria-label="Select Neo-Classical"
+            >
+              Select
+            </button>
+          </div>
         </div>
-      </form>
-    </div>
+      </div>
+
+      <!-- Quiz Screen -->
+      <div class="quiz-container hidden" aria-hidden="true">
+        <div id="loading-screen" role="alert" aria-live="assertive">
+          <p>Loading...</p>
+        </div>
+        <figure id="artwork-image"></figure>
+        <section id="artwork-info" aria-live="polite">
+          <p id="date"><strong>Date:</strong> <span></span></p>
+          <p id="artist"><strong>Artist:</strong> <span></span></p>
+          <p id="title"><strong>Title:</strong> <span></span></p>
+        </section>
+
+        <form id="art-form" aria-labelledby="art-name">
+          <label for="name" id="art-name">Painting Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Name here..."
+            aria-required="true"
+          />
+          <button type="submit" id="submit-button">Submit</button>
+          <button
+            type="button"
+            id="hint-button"
+            aria-describedby="hint-description"
+          >
+            Get Hint
+          </button>
+          <div
+            id="hint-description"
+            class="hint-container"
+            aria-live="polite"
+          ></div>
+          <button
+            type="button"
+            id="quit-button"
+            class="quit-button hidden"
+            aria-label="Quit the quiz"
+          >
+            Quit
+          </button>
+          <div class="counter">
+            <div id="counter-value">0</div>
+          </div>
+        </form>
+      </div>
+    </main>
   </body>
 </html>

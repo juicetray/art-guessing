@@ -1,7 +1,16 @@
 "use strict";
 
+// Function to toggle visibility and aria-hidden attributes
+function toggleVisibility(element, isVisible) {
+  element.classList.toggle("hidden", !isVisible);
+  element.setAttribute("aria-hidden", !isVisible);
+}
+
 // Element selectors
 const startButton = document.getElementById("start-button");
+const introScreen = document.querySelector(".intro");
+const quizSelection = document.querySelector(".quiz-selection");
+const quizContainer = document.querySelector(".quiz-container");
 const movementGrid = document.querySelectorAll(".card-item");
 const movementButtons = document.querySelectorAll(".movement-button");
 const hintContainer = document.querySelector(".hint-container");
@@ -27,8 +36,9 @@ let hintsExhausted = false;
 
 // Event Listeners
 startButton.addEventListener("click", () => {
-  document.querySelector(".intro").style.display = "none";
-  document.querySelector(".quiz-selection").style.display = "flex";
+  toggleVisibility(introScreen, false); // Hide the intro screen
+  toggleVisibility(quizSelection, true); // Show the quiz selection screen
+  toggleVisibility(quizContainer, false); // Ensure the quiz remains hidden
 });
 
 movementGrid.forEach((grid) => {
@@ -73,10 +83,12 @@ async function fetchArtData(selectedMovement) {
     return;
   }
 
-  loadingScreen.style.display = "block";
+  toggleVisibility(loadingScreen, true);
 
   try {
-    const response = await fetch(`https://painting-apik.onrender.com/paintings?movement=${selectedMovement}`);
+    const response = await fetch(
+      `https://painting-apik.onrender.com/paintings?movement=${selectedMovement}`
+    );
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -94,7 +106,7 @@ async function fetchArtData(selectedMovement) {
   } catch (error) {
     console.error("Error fetching art data:", error);
   } finally {
-    loadingScreen.style.display = "none";
+    toggleVisibility(loadingScreen, false);
   }
 }
 
@@ -107,23 +119,21 @@ function shuffleArray(array) {
 }
 
 function startQuiz() {
-  document.querySelector(".quiz-selection").style.display = "none";
-  document.querySelector(".quiz-container").style.display = "block";
-  quitButton.classList.remove("hidden");
+  toggleVisibility(quizSelection, false);
+  toggleVisibility(quizContainer, true);
+  toggleVisibility(quitButton, true);
   displayPainting(paintings[currentPaintingIndex]);
 }
 
 function displayPainting(painting) {
-  // Reset artwork container, loading state, and hints
   artworkInfo.textContent = "";
   artworkImage.innerHTML = "";
-  loadingScreen.style.display = "block"; // Show loading text
-  hintContainer.textContent = ""; // Reset hints
-  hintIndex = 0; // Reset hint index
-  hintsExhausted = false; // Reset hints exhausted state
-  hintButton.disabled = false; // Enable hint button
+  toggleVisibility(loadingScreen, true);
+  hintContainer.textContent = "";
+  hintIndex = 0;
+  hintsExhausted = false;
+  hintButton.disabled = false;
 
-  // <picture> element for responsive images
   const picture = document.createElement("picture");
   picture.style.width = "100%";
   picture.style.height = "100%";
@@ -140,26 +150,20 @@ function displayPainting(painting) {
   img.src = painting.images.large;
   img.alt = painting.alt;
 
-  // Hiding the loading text after the paintings have loaded
   img.onload = () => {
-    loadingScreen.style.display = "none";
+    toggleVisibility(loadingScreen, false);
   };
 
-  // Catch error for paintings failing to load
   img.onerror = () => {
     loadingScreen.innerHTML = `<p>Failed to load the image. Please try again.</p>`;
     console.error("Error loading image");
   };
 
-  // Append sources and image to the picture element
   picture.appendChild(sourceSmall);
   picture.appendChild(sourceMedium);
   picture.appendChild(img);
-
-  // Append the picture to the artwork container
   artworkImage.appendChild(picture);
 
-  // Event listeners for form submission & hint button
   form.removeEventListener("submit", handleSubmit);
   form.addEventListener("submit", handleSubmit);
 
@@ -167,7 +171,6 @@ function displayPainting(painting) {
   hintButton.addEventListener("click", displayHint);
 }
 
-// Submission handler
 function handleSubmit(event) {
   event.preventDefault();
   const guessInput = document.getElementById("name").value.trim();
@@ -187,9 +190,8 @@ function handleSubmit(event) {
   }
 }
 
-// Hint function
 function displayHint() {
-  if (hintsExhausted) return; // Prevent further hints
+  if (hintsExhausted) return;
 
   const currentPainting = paintings[currentPaintingIndex];
   const titleWords = currentPainting.title;
@@ -206,18 +208,17 @@ function displayHint() {
     const noMoreHints = document.createElement("p");
     noMoreHints.textContent = "No more hints available.";
     hintContainer.appendChild(noMoreHints);
-    hintsExhausted = true; // Mark hints as exhausted
-    hintButton.disabled = true; // Disable hint button
+    hintsExhausted = true;
+    hintButton.disabled = true;
   }
 
   hintIndex++;
 }
 
 quitButton.addEventListener("click", () => {
-  // Hide the quiz container and reset the UI to the introduction screen
-  document.querySelector(".quiz-container").style.display = "none";
-  document.querySelector(".intro").style.display = "block";
-  counterValue.textContent = "0"; // Reset the counter
+  toggleVisibility(quizContainer, false);
+  toggleVisibility(introScreen, true);
+  counterValue.textContent = "0";
   successMessage.textContent = "";
   alert("You have exited the quiz.");
 });
