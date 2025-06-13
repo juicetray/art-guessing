@@ -219,46 +219,28 @@ async function saveScore() {
   const statusEl = document.getElementById("status-message");
   statusEl.textContent = "🔍 Attempting to save your score...";
 
-  const {
-    data: { user },
-    error: userError
-  } = await supabaseClient.auth.getUser();
-
-  if (userError || !user) {
-    statusEl.textContent = "⚠️ Unable to retrieve user. Score not saved.";
+  const token = localStorage.getItem("token");
+  if (!token) {
+    statusEl.textContent = "⚠️ You must be logged in to save your score.";
     return;
   }
 
-  const movement = selectedMovement;
-
   try {
-    const { data: existing, error: fetchError } = await supabaseClient
-      .from("scores")
-      .select("*")
-      .eq("user_id", user.id)
-      .eq("movement", movement)
-      .single();
-
-    if (fetchError && fetchError.code !== "PGRST116") {
-      statusEl.textContent = "⚠️ Error checking score history.";
-      return;
-    }
-
-    if (existing) {
-      statusEl.textContent = "ℹ️ You've already submitted a score for this movement.";
-      return;
-    }
-
-    const { error: insertError } = await supabaseClient.from("scores").insert([
-      {
-        user_id: user.id,
+    const res = await fetch("https://api.whopainted.com/scores", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
         score: counter,
-        movement: movement
-      }
-    ]);
+        movement: selectedMovement
+      })
+    });
 
-    if (insertError) {
-      statusEl.textContent = "❌ Failed to save score.";
+    const result = await res.json();
+    if (!res.ok) {
+      statusEl.textContent = `⚠️ ${result.message || "Error saving score."}`;
     } else {
       statusEl.textContent = "✅ Score saved successfully!";
     }
