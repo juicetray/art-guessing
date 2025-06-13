@@ -1,13 +1,17 @@
 {
-  "name": "art-guessing",
+  "name": "art-guessing-backend",
   "version": "1.0.0",
-  "description": "An art guessing game made with HTML, CSS and JavaScript. Custom API made with Node.js and Express.js",
-  "main": "index.js",
+  "description": "Express backend for art guessing game with Supabase integration.",
+  "main": "app.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "@supabase/supabase-js": "^2.42.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "pg": "^8.11.0"
+  }
 }
