@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>whopainted - Quiz</title>
+  <link rel="stylesheet" href="./styles/main.css" />
+  <link rel="stylesheet" href="./styles/quiz.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">
+      <a href="index.html">whopainted</a>
+    </div>
+    <nav class="nav-links">
+      <span id="welcome-message"></span>
+      <a href="login.html" id="login-button">Login</a>
+      <a href="signup.html" class="signup-button" id="signup-button">Sign Up</a>
+    </nav>
+  </header>
+
+  <!-- Quiz Container -->
+  <main>
+    <div id="loading-screen" class="hidden" aria-hidden="true">Loading...</div>
+    <div class="quiz-container hidden" aria-hidden="true">
+      <div id="artwork-image"></div>
+      <div id="artwork-info"></div>
+      <form id="art-form">
+        <input type="text" id="name" name="name" placeholder="Enter artist name">
+        <button type="submit">Submit</button>
+      </form>
+      <button id="hint-button">Hint</button>
+      <div class="hint-container"></div>
+      <div id="counter-value">0</div>
+      <button id="quit-button">Quit</button>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 whopainted. All rights reserved.</p>
+    <a href="https://github.com/jdanderson01/painting-api">GitHub</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="./scripts/navbar.js"></script>
+  <script src="./scripts/quiz.js"></script>
+</body>
+</html>

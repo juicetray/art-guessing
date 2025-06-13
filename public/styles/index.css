@@ -1,0 +1,44 @@
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    border-bottom: 1px solid #A1867F;
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #F6F3E8;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    color: #D1BCE3;
+  }
+  
+  /* Features Section */
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 4rem 2rem;
+    border-top: 1px solid #A1867F;
+  }
+  
+  .feature {
+    flex: 1 1 250px;
+    max-width: 300px;
+    margin: 1rem;
+    text-align: center;
+  }
+  
+  .feature h2 {
+    font-size: 1.5rem;
+    color: #F6F3E8;
+    margin-bottom: 0.5rem;
+  }
+  
+  .feature p {
+    color: #D1B

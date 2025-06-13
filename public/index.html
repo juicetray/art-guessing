@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>whopainted - Landing Page</title>
+  <link rel="stylesheet" href="./styles/main.css" />
+  <link rel="stylesheet" href="./styles/index.css">
+</head>
+<body>
+  <!-- Navbar -->
+<header class="navbar">
+  <div class="logo">
+    <a href="./index.html">whopainted</a>
+  </div>
+  <nav class="nav-links">
+    <span id="welcome-message"></span>
+    <a href="login.html" id="login-button">Login</a>
+    <a href="signup.html" class="signup-button" id="signup-button">Sign Up</a>
+  </nav>
+</header>
+
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>whopainted?</h1>
+    <p>Play a guessing game where you try to name contemporary and historical artworks.</p>
+    <div class="cta-buttons">
+      <a href="login.html" class="button primary" id="hero-sign-in-button">Sign In</a>
+      <a href="./quiz-selection.html" class="button secondary">Get to guessing!</a>
+    </div>    
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <div class="feature">
+      <h2>🎨 Art Movements</h2>
+      <p>Challenge yourself to guess paintings based on their art movement.</p>
+    </div>
+    <div class="feature">
+      <h2>💡 Hint System</h2>
+      <p>Get helpful hints to guide your guesses when you get stuck.</p>
+    </div>
+    <div class="feature">
+      <h2>📊 Score Tracking</h2>
+      <p>Track your progress and see how you improve over time.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 whopainted. All rights reserved.</p>
+    <a href="https://github.com/jdanderson01/painting-api">GitHub</a>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="./scripts/navbar.js"></script>
+</body>
+</html>

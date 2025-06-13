@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>whopainted - Quiz Selection</title>
+  <link rel="stylesheet" href="./styles/main.css">
+  <link rel="stylesheet" href="./styles/selection-styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">
+      <a href="./index.html">whopainted</a>
+    </div>
+    <nav class="nav-links">
+      <span id="welcome-message"></span>
+      <a href="index.html">Home</a>
+      <a href="login.html" id="login-button">Login</a>
+      <a href="signup.html" class="signup-button" id="signup-button">Sign Up</a>
+    </nav>
+  </header>
+
+  <!-- Quiz Selection Section -->
+  <main>
+    <div class="quiz-selection">
+      <h1>Select an Art Movement</h1>
+      <div class="card-container">
+        <div class="card-item">
+          <h2 class="movement-title">Post-Impressionism</h2>
+          <button
+            type="button"
+            id="post-impressionism"
+            class="hidden movement-button"
+            aria-label="Select Post-Impressionism"
+            onclick="startQuiz('post-impressionism')"
+          >
+            Select
+          </button>
+        </div>
+        <div class="card-item">
+          <h2 class="movement-title">Impressionism</h2>
+          <button
+            type="button"
+            id="impressionism"
+            class="hidden movement-button"
+            aria-label="Select Impressionism"
+            onclick="startQuiz('impressionism')"
+          >
+            Select
+          </button>
+        </div>
+        <div class="card-item">
+          <h2 class="movement-title">Baroque</h2>
+          <button
+            type="button"
+            id="baroque"
+            class="hidden movement-button"
+            aria-label="Select Baroque"
+            onclick="startQuiz('baroque')"
+          >
+            Select
+          </button>
+        </div>
+        <div class="card-item">
+          <h2 class="movement-title">Renaissance</h2>
+          <button
+            type="button"
+            id="renaissance"
+            class="hidden movement-button"
+            aria-label="Select Renaissance"
+            onclick="startQuiz('renaissance')"
+          >
+            Select
+          </button>
+        </div>
+        <div class="card-item">
+          <h2 class="movement-title">Surrealism</h2>
+          <button
+            type="button"
+            id="surrealism"
+            class="hidden movement-button"
+            aria-label="Select Surrealism"
+            onclick="startQuiz('surrealism')"
+          >
+            Select
+          </button>
+        </div>
+        <div class="card-item">
+          <h2 class="movement-title">Neo-Classical</h2>
+          <button
+            type="button"
+            id="neo-classical"
+            class="hidden movement-button"
+            aria-label="Select Neo-Classical"
+            onclick="startQuiz('neo-classical')"
+          >
+            Select
+          </button>
+        </div>
+      </div>      
+    </div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="./scripts/navbar.js"></script>
+<script src="./scripts/quiz-selection.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,219 @@
+.quiz-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 22%;
+    margin: 2% auto;
+    border-radius: 0.75em;
+    padding: 2em;
+    background-color: #9b9fc7;
+    color: black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  form {
+    width: 100%;
+    max-width: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #name {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.75em;
+    border: 2px solid #a0a2ab;
+    border-radius: 0.5em;
+    background-color: #f0ece2;
+    color: #2d2d2d;
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  #name:focus {
+    border-color: #2d2d2d;
+  }
+  
+  input[type="submit"],
+  #hint-button {
+    margin-top: 1em;
+    padding: 0.75em 1.5em;
+    cursor: pointer;
+    background-color: #003366;
+    color: #f0ece2;
+    border: none;
+    border-radius: 0.5em;
+    font-size: 1.1em;
+    transition:
+      transform 0.3s ease,
+      background-color 0.3s ease,
+      border 0.3s ease;
+  }
+  
+  input[type="submit"]:hover,
+  #hint-button:hover {
+    background-color: #2d4dbf;
+  }
+  
+  input[type="submit"]:focus,
+  #hint-button:focus {
+    transform: scale(1.05);
+    border: 2px solid #2d2d2d;
+  }
+  
+  .hint-container {
+    color: #ffffff;
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
+    width: 100%;
+  }
+  
+  .hint-container span {
+    width: 100%;
+    word-wrap: break-word;
+  }
+  
+  .hidden {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  .intro {
+    text-align: center;
+  }
+  
+  #artwork-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 90%;
+    max-height: 70vh;
+    margin: auto;
+    margin-bottom: 2rem; /* Adds space below the painting */
+  }
+  
+  #artwork-image picture img {
+    width: 100%;
+    height: auto; /* Keeps the aspect ratio intact */
+    object-fit: contain; /* Ensures the image fits within the container */
+    display: block;
+  }
+  
+  #success-message {
+    color: #14110b;
+  }
+  
+  .counter {
+    color: #ffffff;
+  }
+  
+  .quit-button {
+    background-color: #003366;
+    color: #f0ece2;
+    padding: 0.75em 1.5em;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+    margin-top: 1em;
+    transition:
+      transform 0.3s ease,
+      background-color 0.3s ease,
+      border 0.3s ease;
+  }
+  
+  .quit-button:hover {
+    background-color: #2d4dbf;
+  }
+  
+  .quit-button:focus {
+    transform: scale(1.05);
+    border: 2px solid #2d2d2d;
+  }
+  
+  .landscape {
+    max-width: 100%;
+    max-height: 50rem;
+  }
+  
+  button:focus,
+  input[type="submit"]:focus,
+  #hint-button:focus,
+  .card-item button:focus {
+    outline: 3px solid #2d4dbf;
+    outline-offset: 2px;
+  }
+  
+  @media (min-width: 481px) and (max-width: 958px) {
+    .quiz-container {
+      max-width: 60%;
+    }
+  
+    #artwork-image picture img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    #start-button,
+    #submit-button,
+    #hint-button {
+      padding: 0.4em 0.8em;
+      font-size: 0.9em;
+    }
+  
+    #name {
+      width: 100%;
+      max-width: 100%;
+      padding: 0.5em;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .quiz-container {
+      max-width: 55%;
+    }
+  
+    #artwork-image {
+      width: 100%;
+      height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    /*#artwork-image picture {
+      width: 100%;
+      height: 100%; 
+      display: flex; 
+    }
+    
+    #artwork-image picture img {
+      width: 100%;
+      height: 100%; 
+      object-fit: contain;
+    }
+  */
+    #start-button,
+    #submit-button,
+    #hint-button {
+      padding: 0.4em 0.8em;
+      font-size: 0.9em;
+    }
+  
+    #name {
+      width: 100%;
+      max-width: 100%;
+      padding: 0.5em;
+    }
+  }
+  

@@ -1,0 +1,90 @@
+.quiz-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.quiz-selection h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #F6F3E8;
+}
+
+/* Card Container as Grid/Flex */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  align-items: stretch; /* ensures equal height */
+}
+
+/* Card Item */
+.card-item {
+  background-color: #C49BBB;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  width: 18rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-item:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Movement Title */
+.movement-title {
+  color: #19297C;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Movement Info */
+.movement-info {
+  color: #14110B;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  height: 8rem; /* adjust height to prevent card shifting */
+  overflow-y: auto;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* On Hover: emphasize title */
+.card-item:hover .movement-info {
+  font-weight: bold;
+}
+
+/* Select Button */
+.movement-button {
+  padding: 0.5rem 1rem;
+  background-color: #19297C;
+  color: #F6F3E8;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.movement-button:hover {
+  background-color: #2d4dbf;
+  transform: scale(1.05);
+}
