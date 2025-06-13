@@ -18,7 +18,6 @@
     color: #D1BCE3;
   }
   
-  /* Features Section */
   .features {
     display: flex;
     flex-wrap: wrap;
@@ -41,4 +40,6 @@
   }
   
   .feature p {
-    color: #D1B
+    color: #D1BCE3;
+  }
+  

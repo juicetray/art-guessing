@@ -22,18 +22,33 @@
 
   <!-- Quiz Container -->
   <main>
-    <div id="loading-screen" class="hidden" aria-hidden="true">Loading...</div>
     <div class="quiz-container hidden" aria-hidden="true">
+      <div id="loading-screen" role="alert" aria-live="assertive">
+        <p>Loading...</p>
+      </div>
+      <div id="status-message" role="status" aria-live="polite" class="status"></div>
       <div id="artwork-image"></div>
-      <div id="artwork-info"></div>
-      <form id="art-form">
-        <input type="text" id="name" name="name" placeholder="Enter artist name">
-        <button type="submit">Submit</button>
-      </form>
-      <button id="hint-button">Hint</button>
-      <div class="hint-container"></div>
-      <div id="counter-value">0</div>
-      <button id="quit-button">Quit</button>
+
+      <!-- Hint Section -->
+      <section id="artwork-info" aria-live="polite">
+        <div class="hint-container"></div>
+      </section>
+
+      <div class="quiz-content">
+        <div class="choices-section">
+          <h3>Guess the Painting Title</h3>
+          <div id="choices-container"></div>
+        </div>
+      </div>
+
+      <div class="controls-row">
+        <button id="hint-button">
+          <img src="../assets/bright-light-bulb-svgrepo-com.svg" alt="Hint icon" class="hint-icon" />
+          Hint
+        </button>        
+        <span id="counter-value">0</span>
+        <button id="quit-button">Quit</button>
+      </div>
     </div>
   </main>
 

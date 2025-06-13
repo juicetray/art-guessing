@@ -6,7 +6,7 @@ body {
   }
 
 .login-container {
-    background-color: #C49BBB; /* Matches card-item background */
+    background-color: #C49BBB;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 0.75rem;
     padding: 2rem;
@@ -28,7 +28,7 @@ body {
   
   /* Heading */
   .login-container h2 {
-    color: #19297C; /* Resolution Blue */
+    color: #19297C;
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 1rem;
@@ -60,15 +60,14 @@ body {
   
   .login-container input[type="email"]:focus,
   .login-container input[type="password"]:focus {
-    border-color: #19297C; /* Resolution Blue focus */
+    border-color: #19297C;
   }
   
-  /* Submit Button styled like movement-button */
   .login-container input[type="submit"] {
     margin-top: 1.5rem;
     padding: 0.5rem 1rem;
-    background-color: #19297C; /* Resolution Blue */
-    color: #F6F3E8; /* Light Beige */
+    background-color: #19297C;
+    color: #F6F3E8;
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
@@ -91,4 +90,20 @@ body {
   .login-container a {
     color: #19297C;
     text-decoration: none;
-    font-weight: b
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .login-container a:hover {
+    color: #2d4dbf;
+  }
+  
+  /* Fade-In Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }

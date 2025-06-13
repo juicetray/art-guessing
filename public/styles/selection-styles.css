@@ -13,7 +13,6 @@
   color: #F6F3E8;
 }
 
-/* Card Container as Grid/Flex */
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -21,10 +20,9 @@
   gap: 1rem;
   padding: 1rem;
   border-radius: 0.5rem;
-  align-items: stretch; /* ensures equal height */
+  align-items: stretch; 
 }
 
-/* Card Item */
 .card-item {
   background-color: #C49BBB;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -45,7 +43,6 @@
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Movement Title */
 .movement-title {
   color: #19297C;
   font-size: 1.5rem;
@@ -53,7 +50,6 @@
   margin-bottom: 0.5rem;
 }
 
-/* Movement Info */
 .movement-info {
   color: #14110B;
   font-size: 0.9rem;
@@ -61,18 +57,17 @@
   text-align: center;
   padding: 0.5em;
   border-radius: 0.5em;
-  height: 8rem; /* adjust height to prevent card shifting */
+  height: 8rem;
   overflow-y: auto;
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
 
-/* On Hover: emphasize title */
 .card-item:hover .movement-info {
   font-weight: bold;
 }
 
-/* Select Button */
+
 .movement-button {
   padding: 0.5rem 1rem;
   background-color: #19297C;
