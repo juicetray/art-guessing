@@ -3,15 +3,24 @@ window.addEventListener("DOMContentLoaded", async () => {
   if (!token) return;
 
   try {
-    const res = await fetch("https://api.whopainted.com/profile", {
-      headers: { Authorization: `Bearer ${token}` }
+    const response = await fetch("https://painting-backend-txkz.onrender.com/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     });
 
-    const { user } = await res.json();
+    const result = await response.json();
 
-    if (user?.username) {
-      const welcomeMessage = document.getElementById("welcome-message");
-      if (welcomeMessage) welcomeMessage.textContent = `Welcome, ${user.username}`;
+    if (!response.ok) {
+      console.error("Failed to fetch profile:", result.message);
+      return;
+    }
+
+    const username = result.user.email.split("@")[0]; // fallback
+
+    const welcomeMessage = document.getElementById("welcome-message");
+    if (welcomeMessage) {
+      welcomeMessage.textContent = `Welcome, ${username}`;
     }
 
     const loginButton = document.getElementById("login-button");
@@ -37,6 +46,6 @@ window.addEventListener("DOMContentLoaded", async () => {
       });
     }
   } catch (err) {
-    console.error("Failed to load user profile", err);
+    console.error("Error fetching user data:", err);
   }
 });

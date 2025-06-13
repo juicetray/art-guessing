@@ -1,13 +1,5 @@
 "use strict";
 
-const user = supabaseClient.auth.getUser();
-
-// Function to toggle visibility and aria-hidden attributes
-function toggleVisibility(element, isVisible) {
-  element.classList.toggle("hidden", !isVisible);
-  element.setAttribute("aria-hidden", !isVisible);
-}
-
 // Element selectors
 const quizContainer = document.querySelector(".quiz-container");
 const loadingScreen = document.getElementById("loading-screen");
@@ -18,6 +10,7 @@ const hintContainer = document.querySelector(".hint-container");
 const hintButton = document.getElementById("hint-button");
 const quitButton = document.getElementById("quit-button");
 const counterValue = document.getElementById("counter-value");
+const statusEl = document.getElementById("status-message");
 
 // Global variables
 let paintings = [];
@@ -27,6 +20,15 @@ let counter = 0;
 let hintIndex = 0;
 let hintsExhausted = false;
 
+// Toggle visibility utility
+function toggleVisibility(element, isVisible) {
+  element.classList.toggle("hidden", !isVisible);
+  element.setAttribute("aria-hidden", !isVisible);
+}
+
+// Get token
+const token = localStorage.getItem("token");
+
 // Fetch all paintings
 async function fetchAllPaintings() {
   try {
@@ -34,11 +36,11 @@ async function fetchAllPaintings() {
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     allPaintings = await response.json();
   } catch (error) {
-    console.error("Error fetching all paintings:", error);
+    statusEl.textContent = "Failed to load all paintings.";
   }
 }
 
-// Fetch paintings for the selected movement
+// Get selected movement from URL
 const urlParams = new URLSearchParams(window.location.search);
 const selectedMovement = urlParams.get("movement");
 
@@ -55,7 +57,6 @@ async function initializeQuiz(selectedMovement) {
 
   try {
     await fetchAllPaintings();
-
     const response = await fetch(
       `https://painting-apik.onrender.com/paintings?movement=${selectedMovement}`
     );
@@ -72,7 +73,7 @@ async function initializeQuiz(selectedMovement) {
       window.location.href = "quiz-selection.html";
     }
   } catch (error) {
-    console.error("Error initializing quiz:", error);
+    statusEl.textContent = "Error loading paintings.";
   } finally {
     toggleVisibility(loadingScreen, false);
   }
@@ -117,7 +118,6 @@ function displayPainting(painting) {
   img.onload = () => toggleVisibility(loadingScreen, false);
   img.onerror = () => {
     loadingScreen.innerHTML = `<p>Failed to load the image. Please try again.</p>`;
-    console.error("Error loading image");
   };
 
   picture.appendChild(sourceSmall);
@@ -135,7 +135,7 @@ function displayPainting(painting) {
   const allOptions = [...wrongOptions, correctTitle];
   shuffleArray(allOptions);
 
-  allOptions.forEach((option, index) => {
+  allOptions.forEach(option => {
     const button = document.createElement("button");
     button.textContent = option;
     button.addEventListener("click", () => handleChoice(option, correctTitle));
@@ -144,8 +144,6 @@ function displayPainting(painting) {
 }
 
 async function handleChoice(selectedOption, correctTitle) {
-  const statusEl = document.getElementById("status-message");
-
   if (selectedOption === correctTitle) {
     counter++;
     counterValue.textContent = counter;
@@ -153,9 +151,9 @@ async function handleChoice(selectedOption, correctTitle) {
     if (++currentPaintingIndex < paintings.length) {
       displayPainting(paintings[currentPaintingIndex]);
     } else {
-      statusEl.textContent = "🎉 Quiz completed! Saving your score...";
-      await saveScore(); // Wait before redirect
-      statusEl.textContent = "✅ Score saved! Returning to selection...";
+      statusEl.textContent = "🎉 Quiz completed! Saving score...";
+      await saveScore();
+      statusEl.textContent = "✅ Score saved! Returning to menu...";
       setTimeout(() => {
         window.location.href = "quiz-selection.html";
       }, 2000);
@@ -164,8 +162,6 @@ async function handleChoice(selectedOption, correctTitle) {
     statusEl.textContent = "❌ Incorrect! Try again.";
   }
 }
-
-
 
 hintButton.addEventListener("click", displayHint);
 
@@ -177,26 +173,12 @@ function displayHint() {
 
   if (hintIndex === 0) {
     const dateP = document.createElement("p");
-    const dateStrong = document.createElement("strong");
-    dateStrong.textContent = "Date:";
-    const dateSpan = document.createElement("span");
-    dateSpan.textContent = ` ${painting.year}`;
-    dateP.appendChild(dateStrong);
-    dateP.appendChild(document.createTextNode(" "));
-    dateP.appendChild(dateSpan);
+    dateP.innerHTML = `<strong>Date:</strong> ${painting.year}`;
     hintContainer.appendChild(dateP);
   } else if (hintIndex === 1) {
     const artistP = document.createElement("p");
-    const artistStrong = document.createElement("strong");
-    artistStrong.textContent = "Artist:";
-    const artistSpan = document.createElement("span");
-    artistSpan.textContent = ` ${painting.artist}`;
-    artistP.appendChild(artistStrong);
-    artistP.appendChild(document.createTextNode(" "));
-    artistP.appendChild(artistSpan);
+    artistP.innerHTML = `<strong>Artist:</strong> ${painting.artist}`;
     hintContainer.appendChild(artistP);
-
-    // No more hints
     hintsExhausted = true;
     hintButton.disabled = true;
   }
@@ -207,26 +189,20 @@ function displayHint() {
 quitButton.addEventListener("click", () => {
   toggleVisibility(quizContainer, false);
   counterValue.textContent = "0";
-  document.getElementById("status-message").textContent = "🚪 You have exited the quiz.";
+  statusEl.textContent = "🚪 You have exited the quiz.";
   setTimeout(() => {
     window.location.href = "quiz-selection.html";
   }, 1500);
 });
 
-
-// Function to save the user's score by movement to Supabase scores table while avoiding dupes
 async function saveScore() {
-  const statusEl = document.getElementById("status-message");
-  statusEl.textContent = "🔍 Attempting to save your score...";
-
-  const token = localStorage.getItem("token");
   if (!token) {
-    statusEl.textContent = "⚠️ You must be logged in to save your score.";
+    statusEl.textContent = "⚠️ Not logged in.";
     return;
   }
 
   try {
-    const res = await fetch("https://api.whopainted.com/scores", {
+    const response = await fetch("https://painting-backend-txkz.onrender.com/scores", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -238,16 +214,18 @@ async function saveScore() {
       })
     });
 
-    const result = await res.json();
-    if (!res.ok) {
+    const result = await response.json();
+
+    if (!response.ok) {
       statusEl.textContent = `⚠️ ${result.message || "Error saving score."}`;
     } else {
       statusEl.textContent = "✅ Score saved successfully!";
     }
-  } catch (err) {
-    statusEl.textContent = "💥 Unexpected error saving score.";
+  } catch (error) {
+    statusEl.textContent = "❌ Failed to connect to the server.";
   }
 }
+
 
 
 
