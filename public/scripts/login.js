@@ -16,7 +16,7 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     return;
   }
 
-  localStorage.setItem("token", result.token); // store JWT
+  localStorage.setItem("token", result.session.access_token);
   alert("Login successful!");
   window.location.href = "index.html";
 });
