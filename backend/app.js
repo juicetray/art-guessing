@@ -45,6 +45,10 @@ const authenticateUser = async (req, res, next) => {
 
 // Routes
 
+app.get('/', (req, res) => {
+  res.send('🎨 Art Guessing Backend is live!');
+});
+
 // Sign up
 app.post('/signup', async (req, res) => {
   const { email, password, username } = req.body;
@@ -68,6 +72,11 @@ app.post('/login', async (req, res) => {
 
   res.status(200).json({ session: data.session });
 });
+
+app.get('/profile', authenticateUser, async (req, res) => {
+  res.status(200).json({ user: req.user });
+});
+
 
 // Save score
 app.post('/scores', authenticateUser, async (req, res) => {
