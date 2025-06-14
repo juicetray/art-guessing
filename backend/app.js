@@ -113,4 +113,10 @@ app.get('/scores', authenticateUser, async (req, res) => {
     .select('*')
     .eq('user_id', userId);
 
-  if (error) return res.status(500).js
+  if (error) return res.status(500).json({ message: error.message });
+
+  res.status(200).json({ scores: data });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
