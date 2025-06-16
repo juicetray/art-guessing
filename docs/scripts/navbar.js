@@ -1,4 +1,4 @@
-// Toggle mobile menu
+// Mobile hamburger toggle
 const toggle = document.getElementById("menu-toggle");
 const links = document.getElementById("nav-links");
 
@@ -8,7 +8,7 @@ if (toggle && links) {
   });
 }
 
-// Token check and user greeting logic
+// Token-based user greeting and sign-out logic
 const token = localStorage.getItem("token");
 if (token) {
   fetch("https://painting-backend-txkz.onrender.com/profile", {

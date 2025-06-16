@@ -20,19 +20,19 @@ let counter = 0;
 let hintIndex = 0;
 let hintsExhausted = false;
 
-// Toggle visibility utility
+// Utility
 function toggleVisibility(element, isVisible) {
   element.classList.toggle("hidden", !isVisible);
   element.setAttribute("aria-hidden", !isVisible);
 }
 
-// Get token
-const token = localStorage.getItem("token");
+// Unique token for quiz.js to avoid conflict with navbar.js
+const quizToken = localStorage.getItem("token");
 
-// Fetch all paintings
+// Load all paintings
 async function fetchAllPaintings() {
   try {
-    const response = await fetch(`https://painting-apik.onrender.com/paintings/all`);
+    const response = await fetch("https://painting-apik.onrender.com/paintings/all");
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     allPaintings = await response.json();
   } catch (error) {
@@ -40,7 +40,7 @@ async function fetchAllPaintings() {
   }
 }
 
-// Get selected movement from URL
+// Get movement from query param
 const urlParams = new URLSearchParams(window.location.search);
 const selectedMovement = urlParams.get("movement");
 
@@ -196,7 +196,7 @@ quitButton.addEventListener("click", () => {
 });
 
 async function saveScore() {
-  if (!token) {
+  if (!quizToken) {
     statusEl.textContent = "⚠️ Not logged in.";
     return;
   }
@@ -206,7 +206,7 @@ async function saveScore() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${quizToken}`
       },
       body: JSON.stringify({
         score: counter,
@@ -225,10 +225,3 @@ async function saveScore() {
     statusEl.textContent = "❌ Failed to connect to the server.";
   }
 }
-
-
-
-
-
-
-
