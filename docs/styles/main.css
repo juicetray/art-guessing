@@ -137,4 +137,6 @@ body {
   text-decoration: none;
 }
 
-.footer a:hov
+.footer a:hover {
+  text-decoration: underline;
+}
