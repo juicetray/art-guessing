@@ -5,12 +5,12 @@
     border-bottom: 1px solid #A1867F;
   }
   
-  .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    color: #F6F3E8;
+  .hero-logo {
+    height: 10rem;
+    display: block;
+    margin: 0 auto;
   }
-  
+
   .hero p {
     font-size: 1.2rem;
     max-width: 600px;

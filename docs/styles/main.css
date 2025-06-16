@@ -33,11 +33,13 @@ body {
   flex-wrap: wrap;
 }
 
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #f0ece2;
+.navbar-logo {
+  height: 2rem;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0.25rem 0;
 }
+
 
 .nav-links a {
   margin-left: 1.5rem;
