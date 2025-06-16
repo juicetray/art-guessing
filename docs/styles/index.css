@@ -6,10 +6,12 @@
   }
   
   .hero-logo {
-    height: 10rem;
+    max-width: 90vw;
+    height: auto;
     display: block;
-    margin: 0 auto;
+    margin: 0 auto 1rem;
   }
+  
 
   .hero p {
     font-size: 1.2rem;
