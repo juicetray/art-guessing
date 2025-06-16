@@ -19,4 +19,4 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
   localStorage.setItem("token", result.session.access_token);
   alert("Login successful!");
   window.location.href = "index.html";
-})
+});
