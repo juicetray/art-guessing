@@ -5,30 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>whopainted - Landing Page</title>
   <link rel="icon" type="image/x-icon" href="../assets/palette-icon-01.png">
-  <link rel="stylesheet" href="./styles/main.css" />
-  <link rel="stylesheet" href="./styles/index.css">
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/index.css">
 </head>
 <body>
-  <!-- Navbar -->
   <header class="navbar">
     <div class="navbar-left">
       <a href="./index.html" class="logo">
         <img src="assets/palette-logo-01.svg" alt="Who Painted logo" class="navbar-logo" />
       </a>
     </div>
-    
     <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">☰</button>
-  
     <nav class="nav-links" id="nav-links">
       <span id="welcome-message"></span>
       <a href="login.html" id="login-button">Login</a>
       <a href="signup.html" class="signup-button" id="signup-button">Sign Up</a>
     </nav>
   </header>
-  
 
-
-  <!-- Hero Section -->
   <section class="hero">
     <img src="assets/hero-logo.svg" alt="Who Painted logo" class="hero-logo" />
     <p>Play a guessing game where you try to name contemporary and historical artworks.</p>
@@ -38,28 +32,64 @@
     </div>    
   </section>
 
-  <!-- Features Section -->
-  <section id="features" class="features">
+  <section id="movements" class="carousel-section">
+    <h2 class="carousel-heading">Explore Art Movements</h2>
+    <div class="carousel">
+      <div class="carousel-slide">
+        <img src="https://painting-api-images.s3.amazonaws.com/painting-4-medium.webp" alt="Girl with a Pearl Earring">
+        <p> Baroque art, flourishing in the 17th century, is known for its dramatic flair, grandeur, and emotional intensity. Paintings by artists like Caravaggio and Rembrandt often feature dynamic compositions, strong contrasts of light and shadow, and an emphasis on storytelling.</p>
+      </div>
+      <div class="carousel-slide">
+        <img src="https://painting-api-images.s3.amazonaws.com/painting-1-medium.webp" alt="Starry Night">
+        <p> The Modern Art movement emerged in the late 19th and early 20th centuries, characterized by a break from traditional techniques and a focus on innovation, abstraction, and self-expression.</p>
+      </div>
+      <div class="carousel-slide">
+        <img src="https://painting-api-images.s3.amazonaws.com/painting-3-medium.webp" alt="The Persistence of Memory">
+        <p> Surrealism, originating in the early 20th century, sought to unlock the unconscious mind through dreamlike and often bizarre imagery. Artists like Salvador Dalí and René Magritte created fantastical works that challenged perceptions of reality and explored the mysteries of the human psyche.</p>
+      </div>
+      <div class="carousel-slide">
+        <img src="https://painting-api-images.s3.amazonaws.com/painting-11-medium.webp" alt="Water Lily Pond">
+        <p> Impressionism, emerging in the late 19th century, focused on capturing fleeting moments and the effects of light and color in everyday scenes. Painters like Monet and Degas used loose brushstrokes and vibrant palettes to create works that felt immediate and atmospheric.</p>
+      </div>
+      <div class="carousel-slide">
+        <img src="https://painting-api-images.s3.amazonaws.com/painting-44-medium.webp" alt="The Last Supper">
+        <p> The Renaissance, spanning the 14th to 17th centuries, marked a rebirth of classical ideals in art, emphasizing realism, proportion, and perspective. Masters like Michelangelo and Leonardo da Vinci created iconic works that celebrated human achievement and divine beauty.</p>
+      </div>
+      <div class="carousel-slide">
+        <img src="https://painting-api-images.s3.amazonaws.com/painting-28-medium.webp" alt="The Death of Marat">
+        <p> Neo-Classical art, popular in the late 18th and early 19th centuries, drew inspiration from ancient Greece and Rome, emphasizing order, harmony, and restrained emotion. Artists like Jacques-Louis David used clean lines and classical themes to convey moral and political ideals.</p>
+      </div>
+    </div>       
+  </section>
+
+  <section class="features" id="coming-soon">
     <div class="feature">
-      <h2>🎨 Art Movements</h2>
-      <p>Challenge yourself to guess paintings based on their art movement.</p>
+      <h2>🏆 Leaderboards</h2>
+      <p>Compete with others to see who knows their art best.</p>
     </div>
     <div class="feature">
-      <h2>💡 Hint System</h2>
-      <p>Get helpful hints to guide your guesses when you get stuck.</p>
-    </div>
-    <div class="feature">
-      <h2>📊 Score Tracking</h2>
-      <p>Track your progress and see how you improve over time.</p>
+      <h2>🖼️ Upcoming Movements</h2>
+      <p>Cubism, Romanticism, Realism, and more are on the way.</p>
     </div>
   </section>
 
-  <!-- Footer -->
+  <section class="features" id="testimonial">
+    <div class="feature">
+      <h2>💬 What Players Are Saying</h2>
+      <blockquote class="testimonial-quote">
+        “I like this, going to use it to find new art. The description of each category is clutch.”
+      </blockquote>
+      <p class="testimonial-source">— Ty</p>
+    </div>
+  </section>
+
   <footer class="footer">
     <p>&copy; 2025 whopainted. All rights reserved.</p>
     <a href="https://github.com/jdanderson01/painting-api">GitHub</a>
   </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="./scripts/navbar.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>

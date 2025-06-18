@@ -10,7 +10,6 @@ const hintContainer = document.querySelector(".hint-container");
 const hintButton = document.getElementById("hint-button");
 const quitButton = document.getElementById("quit-button");
 const counterValue = document.getElementById("counter-value");
-const statusEl = document.getElementById("status-message");
 
 // Global variables
 let paintings = [];
@@ -20,13 +19,11 @@ let counter = 0;
 let hintIndex = 0;
 let hintsExhausted = false;
 
-// Utility
 function toggleVisibility(element, isVisible) {
   element.classList.toggle("hidden", !isVisible);
   element.setAttribute("aria-hidden", !isVisible);
 }
 
-// Unique token for quiz.js to avoid conflict with navbar.js
 const quizToken = localStorage.getItem("token");
 
 // Load all paintings
@@ -36,11 +33,14 @@ async function fetchAllPaintings() {
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     allPaintings = await response.json();
   } catch (error) {
-    statusEl.textContent = "Failed to load all paintings.";
+    const err = document.createElement("p");
+    err.textContent = "Failed to load all paintings.";
+    err.classList.add("incorrect");
+    hintContainer.appendChild(err);
   }
 }
 
-// Get movement from query param
+// Movement from query param
 const urlParams = new URLSearchParams(window.location.search);
 const selectedMovement = urlParams.get("movement");
 
@@ -57,9 +57,7 @@ async function initializeQuiz(selectedMovement) {
 
   try {
     await fetchAllPaintings();
-    const response = await fetch(
-      `https://painting-apik.onrender.com/paintings?movement=${selectedMovement}`
-    );
+    const response = await fetch(`https://painting-apik.onrender.com/paintings?movement=${selectedMovement}`);
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
     paintings = await response.json();
@@ -73,7 +71,10 @@ async function initializeQuiz(selectedMovement) {
       window.location.href = "quiz-selection.html";
     }
   } catch (error) {
-    statusEl.textContent = "Error loading paintings.";
+    const err = document.createElement("p");
+    err.textContent = "Error loading paintings.";
+    err.classList.add("incorrect");
+    hintContainer.appendChild(err);
   } finally {
     toggleVisibility(loadingScreen, false);
   }
@@ -100,8 +101,6 @@ function displayPainting(painting) {
   hintButton.disabled = false;
 
   const picture = document.createElement("picture");
-  picture.style.width = "100%";
-  picture.style.height = "100%";
 
   const sourceSmall = document.createElement("source");
   sourceSmall.srcset = painting.images.small;
@@ -144,6 +143,13 @@ function displayPainting(painting) {
 }
 
 async function handleChoice(selectedOption, correctTitle) {
+  // Remove only previous feedback, not hints
+  const existingFeedback = hintContainer.querySelector(".feedback");
+  if (existingFeedback) existingFeedback.remove();
+
+  const feedback = document.createElement("p");
+  feedback.classList.add("feedback"); // for targeted removal later
+
   if (selectedOption === correctTitle) {
     counter++;
     counterValue.textContent = counter;
@@ -151,17 +157,33 @@ async function handleChoice(selectedOption, correctTitle) {
     if (++currentPaintingIndex < paintings.length) {
       displayPainting(paintings[currentPaintingIndex]);
     } else {
-      statusEl.textContent = "🎉 Quiz completed! Saving score...";
+      feedback.textContent = "🎉 Quiz completed! Saving score...";
+      feedback.classList.add("correct");
+      hintContainer.appendChild(feedback);
+
       await saveScore();
-      statusEl.textContent = "✅ Score saved! Returning to menu...";
+
+      const success = document.createElement("p");
+      success.textContent = "✅ Score saved! Returning to menu...";
+      success.classList.add("correct", "feedback");
+      hintContainer.appendChild(success);
+
       setTimeout(() => {
         window.location.href = "quiz-selection.html";
       }, 2000);
     }
   } else {
-    statusEl.textContent = "❌ Incorrect! Try again.";
+    feedback.textContent = "❌ Incorrect! Try again.";
+    feedback.classList.add("incorrect", "feedback");
+    hintContainer.appendChild(feedback);
+
+    // Timer on feedback staying
+    setTimeout(() => {
+      feedback.remove();
+    }, 2000);
   }
 }
+
 
 hintButton.addEventListener("click", displayHint);
 
@@ -171,25 +193,30 @@ function displayHint() {
 
   if (hintsExhausted) return;
 
+  const p = document.createElement("p");
+
   if (hintIndex === 0) {
-    const dateP = document.createElement("p");
-    dateP.innerHTML = `<strong>Date:</strong> ${painting.year}`;
-    hintContainer.appendChild(dateP);
+    p.innerHTML = `<strong>Date:</strong> ${painting.year}`;
   } else if (hintIndex === 1) {
-    const artistP = document.createElement("p");
-    artistP.innerHTML = `<strong>Artist:</strong> ${painting.artist}`;
-    hintContainer.appendChild(artistP);
+    p.innerHTML = `<strong>Artist:</strong> ${painting.artist}`;
     hintsExhausted = true;
     hintButton.disabled = true;
   }
 
+  hintContainer.appendChild(p);
   hintIndex++;
 }
 
 quitButton.addEventListener("click", () => {
   toggleVisibility(quizContainer, false);
   counterValue.textContent = "0";
-  statusEl.textContent = "🚪 You have exited the quiz.";
+
+  const quitMsg = document.createElement("p");
+  quitMsg.textContent = "🚪 You have exited the quiz.";
+  quitMsg.classList.add("exit");
+  hintContainer.innerHTML = "";
+  hintContainer.appendChild(quitMsg);
+
   setTimeout(() => {
     window.location.href = "quiz-selection.html";
   }, 1500);
@@ -197,7 +224,10 @@ quitButton.addEventListener("click", () => {
 
 async function saveScore() {
   if (!quizToken) {
-    statusEl.textContent = "⚠️ Not logged in.";
+    const warn = document.createElement("p");
+    warn.textContent = "⚠️ Not logged in.";
+    warn.classList.add("incorrect");
+    hintContainer.appendChild(warn);
     return;
   }
 
@@ -215,13 +245,21 @@ async function saveScore() {
     });
 
     const result = await response.json();
+    const msg = document.createElement("p");
 
     if (!response.ok) {
-      statusEl.textContent = `⚠️ ${result.message || "Error saving score."}`;
+      msg.textContent = `⚠️ ${result.message || "Error saving score."}`;
+      msg.classList.add("incorrect");
     } else {
-      statusEl.textContent = "✅ Score saved successfully!";
+      msg.textContent = "✅ Score saved successfully!";
+      msg.classList.add("correct");
     }
+
+    hintContainer.appendChild(msg);
   } catch (error) {
-    statusEl.textContent = "❌ Failed to connect to the server.";
+    const err = document.createElement("p");
+    err.textContent = "❌ Failed to connect to the server.";
+    err.classList.add("incorrect");
+    hintContainer.appendChild(err);
   }
 }
