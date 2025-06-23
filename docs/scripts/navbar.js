@@ -1,15 +1,16 @@
 // Mobile hamburger toggle
-const toggle = document.getElementById("menu-toggle");
-const links = document.getElementById("nav-links");
+const menuToggle = document.getElementById("menu-toggle");
+const navLinks = document.getElementById("nav-links");
 
-if (toggle && links) {
-  toggle.addEventListener("click", () => {
-    links.classList.toggle("show");
+if (menuToggle && navLinks) {
+  menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("show");
   });
 }
 
 // Token-based user greeting and sign-out logic
 const token = localStorage.getItem("token");
+
 if (token) {
   fetch("https://painting-backend-txkz.onrender.com/profile", {
     headers: {

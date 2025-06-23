@@ -1,14 +1,4 @@
-
-const toggle = document.getElementById("menu-toggle");
-const links = document.getElementById("nav-links");
-
-if (toggle && links) {
-  toggle.addEventListener("click", () => {
-    links.classList.toggle("show");
-  });
-}
-
-
+// Carousel drag scrolling
 const carousel = document.querySelector(".carousel");
 
 if (carousel) {
@@ -37,7 +27,17 @@ if (carousel) {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - carousel.offsetLeft;
-    const walk = (x - startX) * 2; // Scroll speed
+    const walk = (x - startX) * 2;
     carousel.scrollLeft = scrollLeft - walk;
   });
 }
+
+// Handle movement button clicks
+document.querySelectorAll(".movement-button").forEach(button => {
+  button.addEventListener("click", () => {
+    const movement = button.getAttribute("data-movement");
+    if (movement) {
+      window.location.href = `quiz.html?movement=${encodeURIComponent(movement)}`;
+    }
+  });
+});

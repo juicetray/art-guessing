@@ -3,6 +3,7 @@ body {
   font-family: sans-serif;
 }
 
+/* Container */
 .quiz-container {
   max-width: 600px;
   margin: 2rem auto;
@@ -13,38 +14,11 @@ body {
   position: relative;
 }
 
+/* Status & Feedback */
 .status {
   margin-bottom: 1em;
   font-weight: bold;
   color: #19297C;
-}
-
-#artwork-image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-height: 350px;
-  overflow: hidden;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-#artwork-image img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  display: block;
-}
-
-#artwork-info {
-  margin-bottom: 1rem;
-  padding: 1rem;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 0.5rem;
-}
-
-#artwork-info p {
-  margin: 0.25em 0;
 }
 
 .hint-container p {
@@ -56,7 +30,6 @@ body {
   display: block;
 }
 
-/* Feedback styles */
 .hint-container .correct {
   color: green;
 }
@@ -69,6 +42,35 @@ body {
   color: #444;
 }
 
+/* Artwork display */
+#artwork-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#artwork-image img {
+  max-width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Hints */
+#artwork-info {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+}
+
+#artwork-info p {
+  margin: 0.25em 0;
+}
+
+/* Layout */
 .quiz-content {
   display: flex;
   flex-wrap: wrap;
@@ -80,6 +82,7 @@ body {
   flex: 1 1 100%;
 }
 
+/* Answer buttons */
 #choices-container {
   display: flex;
   flex-direction: column;
@@ -96,7 +99,7 @@ body {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Alternating colors using nth-child */
+/* Alternating button colors */
 #choices-container button:nth-child(1) { background-color: #D1BCE3; color: #000; }
 #choices-container button:nth-child(2) { background-color: #C49BBB; color: #000; }
 #choices-container button:nth-child(3) { background-color: #A1867F; color: #000; }
@@ -107,6 +110,7 @@ body {
   color: #fff;
 }
 
+/* Controls (hint/quit) */
 .controls-row {
   display: flex;
   justify-content: space-between;
@@ -166,6 +170,7 @@ body {
   background-color: #A1867F;
 }
 
+/* Loading screen */
 #loading-screen {
   position: absolute;
   top: 50%;
@@ -181,4 +186,15 @@ body {
 
 #loading-screen.hidden {
   display: none;
+}
+
+@media (max-width: 600px) {
+  .quiz-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  #artwork-image img {
+    max-height: 300px;
+  }
 }

@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .hero {
   text-align: center;
   padding: 4rem 2rem;
@@ -50,6 +54,35 @@
   color: #f0ece2;
 }
 
+.demo-section {
+  padding: 4rem 2rem;
+  text-align: center;
+  background-color: #4d4780;
+  border-top: 1px solid #A1867F;
+  border-bottom: 1px solid #A1867F;
+}
+
+.demo-container {
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+.demo-gif {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.demo-description {
+  color: #f0ece2;
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+
 .carousel-section {
   max-width: 60rem;
   margin: 0 auto;
@@ -77,7 +110,7 @@
 
 .carousel-slide {
   flex: 0 0 18rem;
-  height: 21rem;
+  height: auto;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
@@ -103,9 +136,31 @@
 .carousel-slide p {
   font-size: 0.9rem;
   color: #14110B;
-  margin: 0;
+  margin: 0 0 1rem 0;
   word-wrap: break-word;
   overflow-wrap: break-word;
+}
+
+.movement-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #19297C;
+  margin: 0.5rem 0;
+}
+
+.movement-button {
+  background-color: #19297C;
+  color: #f0ece2;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.movement-button:hover {
+  background-color: #2d4dbf;
 }
 
 .testimonial-quote {
@@ -145,6 +200,7 @@
   color: #D1BCE3;
 }
 
+
 @media (max-width: 960px) {
   .carousel-slide {
     flex: 0 0 45%;
@@ -171,4 +227,3 @@
     height: 8rem;
   }
 }
-
