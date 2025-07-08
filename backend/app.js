@@ -17,9 +17,6 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
-
 // Supabase server-side client
 const supabase = createClient(
   process.env.SUPABASE_URL,
