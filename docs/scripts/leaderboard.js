@@ -1,6 +1,6 @@
 async function loadLeaderboard() {
     try {
-        const response = await fetch("https://painting-backend-txkz.onrender.com/leaderboard");
+        const response = await fetch("https://painting-backend-txkz.onrender.com/scores/leaderboard");
 
         const { scores } = await response.json();
 
