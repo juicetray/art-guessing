@@ -111,23 +111,25 @@ app.get('/scores', authenticateUser, async (req, res) => {
 app.get("/scores/leaderboard", async (req, res) => {
   try {
     const { data, error } = await supabase
-    .from("scores")
-    .select(`
-      score,
-      movement,
-      created_at,
-      user: user_id (email)
-      `
-    ).order("score", { ascending: false });
+      .from("scores")
+      .select(`
+        score,
+        movement,
+        created_at,
+        users (
+          username
+        )
+      `)
+      .order("score", { ascending: false });
 
     if (error) throw error;
 
     res.status(200).json({ leaderboard: data });
   } catch (err) {
-    console.error(err);
+    console.error("Leaderboard error:", err);
     res.status(500).json({ message: "Failed to fetch leaderboard." });
   }
-})
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
