@@ -34,9 +34,20 @@ html {
 }
 
 .button.primary {
+  display: inline-block;
   background-color: #19297C;
   color: #f0ece2;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
 }
+
+.button.primary:hover {
+  background-color: #2d4dbf;
+}
+
 
 .button.secondary {
   background-color: transparent;

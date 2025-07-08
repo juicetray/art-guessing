@@ -16,7 +16,6 @@ body {
   color: #14110B;
 }
 
-/* Navbar */
 .navbar {
   position: sticky;
   top: 0;
@@ -90,7 +89,6 @@ body {
   cursor: pointer;
 }
 
-/* Footer */
 .footer {
   text-align: center;
   padding: 2rem;
@@ -108,7 +106,7 @@ body {
   text-decoration: underline;
 }
 
-/* Responsive Layout for Navbar */
+
 @media (max-width: 600px) {
   .navbar {
     flex-direction: row;

@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const express = require('express');
 const { createClient } = require('@supabase/supabase-js');
-const { Pool } = require('pg');
 const cors = require('cors');
 
 const app = express();
@@ -18,11 +17,8 @@ app.use(cors({
   credentials: true
 }));
 
-// PostgreSQL
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
-});
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // Supabase server-side client
 const supabase = createClient(
@@ -30,7 +26,6 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-// Middleware: Validate token and attach user
 const authenticateUser = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ message: 'No token provided.' });
@@ -44,7 +39,6 @@ const authenticateUser = async (req, res, next) => {
 };
 
 // Routes
-
 app.get('/', (req, res) => {
   res.send('🎨 Art Guessing Backend is live!');
 });
@@ -105,7 +99,6 @@ app.post('/scores', authenticateUser, async (req, res) => {
   }
 });
 
-// Get scores
 app.get('/scores', authenticateUser, async (req, res) => {
   const userId = req.user.id;
   const { data, error } = await supabase
@@ -117,6 +110,27 @@ app.get('/scores', authenticateUser, async (req, res) => {
 
   res.status(200).json({ scores: data });
 });
+
+app.get("/scores/leaderboard", async (req, res) => {
+  try {
+    const { data, error } = await supabase
+    .from("scores")
+    .select(`
+      score,
+      movement,
+      created_at,
+      user: user_id (email)
+      `
+    ).order("score", { ascending: false });
+
+    if (error) throw error;
+
+    res.status(200).json({ leaderboard: data });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch leaderboard." });
+  }
+})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
