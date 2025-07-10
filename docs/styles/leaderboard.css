@@ -1,0 +1,98 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.leaderboard-main {
+  flex: 1;
+  padding: 2rem;
+}
+
+.leaderboard-main h1 {
+  text-align: center;
+  color: #F6F3E8;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.leaderboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.movement-section {
+  background-color: #C49BBB;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  width: 18rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movement-section:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+.movement-section .movement-title {
+  font-size: 1.25rem;
+  color: #19297C;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+.score-entry {
+  background-color: #f0ece2;
+  color: #14110B;
+  font-size: 0.9rem;
+  margin: 0.3rem 0;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.score-entry:hover {
+  background-color: #D1BCE3;
+}
+
+.score-entry.top {
+  font-weight: bold;
+  color: #19297C;
+}
+
+@media (max-width: 768px) {
+  .movement-section {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .leaderboard-container {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .movement-section {
+    padding: 1rem;
+  }
+
+  .score-entry {
+    font-size: 0.85rem;
+  }
+}
