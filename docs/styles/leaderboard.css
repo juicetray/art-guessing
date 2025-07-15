@@ -1,8 +1,15 @@
-html,
 body {
-  height: 100%;
   margin: 0;
-  padding: 0;
+  font-family: system-ui, sans-serif;
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+}
+
+html.dark {
+  --color-primary: hsl(241, 50%, 10%);
+  --color-secondary: hsl(241, 50%, 90%);
+  --color-tertiary: hsl(301, 80%, 80%);
+  --color-accent: hsl(181, 80%, 80%);
 }
 
 .page-wrapper {
@@ -18,8 +25,8 @@ body {
 
 .leaderboard-main h1 {
   text-align: center;
-  color: #F6F3E8;
   font-size: 2rem;
+  color: var(--color-tertiary);
   margin-bottom: 1.5rem;
 }
 
@@ -28,38 +35,35 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.5rem;
-  padding: 2rem;
 }
 
 .movement-section {
-  background-color: #C49BBB;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, var(--color-tertiary), var(--color-accent), var(--color-tertiary));
+  background-size: 400% 400%;
+  animation: animated-gradient 10s ease infinite;
   border-radius: 0.75rem;
-  padding: 1rem;
+  padding: 1.25rem;
   width: 18rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .movement-section:hover {
   transform: translateY(-0.5rem);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-.movement-section .movement-title {
+.movement-title {
   font-size: 1.25rem;
-  color: #19297C;
   font-weight: bold;
+  color: var(--color-primary);
   margin-bottom: 0.75rem;
 }
 
 .score-entry {
-  background-color: #f0ece2;
-  color: #14110B;
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
   font-size: 0.9rem;
   margin: 0.3rem 0;
   padding: 0.5rem;
@@ -68,12 +72,12 @@ body {
 }
 
 .score-entry:hover {
-  background-color: #D1BCE3;
+  background-color: var(--color-tertiary);
 }
 
 .score-entry.top {
   font-weight: bold;
-  color: #19297C;
+  color: var(--color-accent);
 }
 
 @media (max-width: 768px) {
@@ -95,4 +99,10 @@ body {
   .score-entry {
     font-size: 0.85rem;
   }
+}
+
+@keyframes animated-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }

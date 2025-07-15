@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz Results</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/quiz-results.css" />
+</head>
+<body>
+<header class="navbar">
+  <div class="navbar-left">
+    <a href="./index.html" class="logo">
+      <img src="assets/palette-logo-01.svg" alt="Who Painted logo" class="navbar-logo" />
+    </a>
+  </div>
+  <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">☰</button>
+  <nav class="nav-links" id="nav-links">
+    <span id="welcome-message"></span>
+    <a href="learn.html" class="learn-link">Learn</a>
+    <a href="login.html" id="login-button">Login</a>
+    <a href="signup.html" class="signup-button" id="signup-button">Sign Up</a>
+  </nav>
+</header>
+
+  <main class="results-container">
+    <h1>Quiz Report</h1>
+    <div id="summary-container">
+    </div>
+    <a href="index.html#movements" class="button primary">Try Another Movement</a>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 whopainted. All rights reserved.</p>
+    <a href="https://github.com/jdanderson01/painting-api">GitHub</a>
+  </footer>
+
+  <script src="./scripts/navbar.js"></script>
+  <script src="./scripts/results.js" defer></script>
+</body>
+</html>

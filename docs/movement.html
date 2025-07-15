@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movement • WhoPainted</title>
+  <link rel="stylesheet" href="./styles/main.css" />
+  <link rel="stylesheet" href="./styles/movement.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-left">
+      <a href="./index.html" class="logo">
+        <img src="assets/palette-logo-01.svg" alt="Who Painted logo" class="navbar-logo" />
+      </a>
+    </div>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">☰</button>
+    <nav class="nav-links" id="nav-links">
+      <span id="welcome-message"></span>
+      <a href="learn.html" class="learn-link">Learn</a>
+      <a href="login.html" id="login-button">Login</a>
+      <a href="signup.html" class="signup-button" id="signup-button">Sign Up</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1 id="movement-title"></h1>
+    <img id="movement-painting" />
+    <div id="movement-description"></div>
+    <p id="movement-source"></p>
+    <a href="learn.html" class="button primary back-button">← Back to Movements</a>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 whopainted. All rights reserved.</p>
+    <a href="https://github.com/jdanderson01/painting-api">GitHub</a>
+  </footer>
+
+  <script src="./scripts/navbar.js"></script>
+  <script src="./scripts/movement.js"></script>
+</body>
+</html>

@@ -8,7 +8,34 @@ if (menuToggle && navLinks) {
   });
 }
 
-// Token-based user greeting and sign-out logic
+const toggleTheme = () => {
+  document.documentElement.classList.toggle("dark");
+  localStorage.setItem(
+    "theme",
+    document.documentElement.classList.contains("dark") ? "dark" : "light"
+  );
+};
+
+window.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("theme") === "dark") {
+    document.documentElement.classList.add("dark");
+  }
+
+  const themeToggleBtn = document.createElement("button");
+  themeToggleBtn.textContent = "🌓";
+  themeToggleBtn.className = "theme-toggle";
+  themeToggleBtn.style.marginLeft = "1rem";
+  themeToggleBtn.style.background = "none";
+  themeToggleBtn.style.border = "none";
+  themeToggleBtn.style.cursor = "pointer";
+  themeToggleBtn.style.fontSize = "1.2rem";
+  themeToggleBtn.style.color = "var(--color-secondary)";
+  themeToggleBtn.addEventListener("click", toggleTheme);
+
+  const navbarLeft = document.querySelector(".navbar-left");
+  if (navbarLeft) navbarLeft.appendChild(themeToggleBtn);
+});
+
 const token = localStorage.getItem("token");
 
 if (token) {

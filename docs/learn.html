@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learn - WhoPainted</title>
+  <link rel="stylesheet" href="./styles/main.css" />
+  <link rel="stylesheet" href="./styles/learn.css" />
+</head>
+<body>
+<header class="navbar">
+    <div class="navbar-left">
+      <a href="./index.html" class="logo">
+        <img src="assets/palette-logo-01.svg" alt="Who Painted logo" class="navbar-logo" />
+      </a>
+    </div>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">☰</button>
+    <nav class="nav-links" id="nav-links">
+      <span id="welcome-message"></span>
+      <a href="learn.html" class="learn-link">Learn</a>
+      <a href="login.html" id="login-button">Login</a>
+      <a href="signup.html" class="signup-button" id="signup-button">Sign Up</a>
+    </nav>
+  </header>
+
+  <main class="learn-main">
+    <h1 class="page-title">🧠 Explore Movements</h1>
+
+    <div class="masonry-gallery">
+      <a href="movement.html?name=baroque" class="masonry-tile">
+        <img src="https://painting-api-images.s3.amazonaws.com/painting-4-medium.webp" alt="Baroque" />
+        <span class="overlay">Baroque</span>
+      </a>
+
+      <a href="movement.html?name=post-impressionism" class="masonry-tile">
+        <img src="https://painting-api-images.s3.amazonaws.com/painting-1-medium.webp" alt="Post-Impressionism" />
+        <span class="overlay">Post-Impressionism</span>
+      </a>
+
+      <a href="movement.html?name=surrealism" class="masonry-tile">
+        <img src="https://painting-api-images.s3.amazonaws.com/painting-3-medium.webp" alt="Surrealism" />
+        <span class="overlay">Surrealism</span>
+      </a>
+
+      <a href="movement.html?name=impressionism" class="masonry-tile">
+        <img src="https://painting-api-images.s3.amazonaws.com/painting-11-medium.webp" alt="Impressionism" />
+        <span class="overlay">Impressionism</span>
+      </a>
+
+      <a href="movement.html?name=renaissance" class="masonry-tile">
+        <img src="https://painting-api-images.s3.amazonaws.com/painting-44-medium.webp" alt="Renaissance" />
+        <span class="overlay">Renaissance</span>
+      </a>
+
+      <a href="movement.html?name=neo-classical" class="masonry-tile">
+        <img src="https://painting-api-images.s3.amazonaws.com/painting-28-medium.webp" alt="Neo-Classical" />
+        <span class="overlay">Neo-Classical</span>
+      </a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 whopainted. All rights reserved.</p>
+    <a href="https://github.com/jdanderson01/painting-api">GitHub</a>
+  </footer>
+  <script src="./scripts/navbar.js"></script>
+</body>
+</html>

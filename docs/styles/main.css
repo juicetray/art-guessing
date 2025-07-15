@@ -1,19 +1,31 @@
+:root {
+  --color-primary: hsl(241, 50%, 90%);
+  --color-secondary: hsl(241, 50%, 10%);
+  --color-tertiary: hsl(301, 80%, 20%);
+  --color-accent: hsl(181, 80%, 20%);
+}
+
+.dark {
+  --color-primary: hsl(241, 50%, 10%);
+  --color-secondary: hsl(241, 50%, 90%);
+  --color-tertiary: hsl(301, 80%, 80%);
+  --color-accent: hsl(181, 80%, 80%);
+}
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #585481;
-  background-image:
-    linear-gradient(rgba(88, 84, 129, 0.9), rgba(88, 84, 129, 0.9)),
-    url("/assets/black-twill.png");
-  background-repeat: repeat;
-  background-size: auto;
+html, body {
   margin: 0;
-  color: #14110B;
+  padding: 0;
+  color: var(--color-secondary);
+  font-family: Arial, sans-serif;
+  background-color: linear-gradient(135deg, var(--color-tertiary), var(--color-accent), var(--color-primary));
+  background-size: 400% 400%;
+  animation: animated-gradient 15s ease infinite;
 }
 
 .navbar {
@@ -23,12 +35,16 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #19297C;
-  color: #f0ece2;
   padding: 1rem 2rem;
-  border-bottom: 1px solid #A1867F;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   flex-wrap: wrap;
+}
+
+.dark .navbar {
+  background-color: rgba(20, 20, 30, 0.35);
 }
 
 .navbar-left {
@@ -58,26 +74,39 @@ body {
 .nav-links a {
   margin-left: 1.5rem;
   text-decoration: none;
-  color: #f0ece2;
+  color: var(--color-secondary);
   font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .nav-links .signup-button {
-  background-color: #f0ece2;
-  color: #19297C;
+  background-color: var(--color-accent);
+  color: var(--color-primary);
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .nav-links .signup-button:hover {
-  background-color: #C49BBB;
-  color: #19297C;
+  background-color: var(--color-tertiary);
+  color: var(--color-primary);
 }
 
 #welcome-message {
   font-weight: 600;
-  color: #f0ece2;
+  color: var(--color-secondary);
   margin-right: 1rem;
+}
+
+.learn-link {
+  font-weight: 600;
+  color: var(--color-secondary);
+  margin-right: 1rem;
+  transition: color 0.3s ease;
+}
+
+.learn-link:hover {
+  color: var(--color-tertiary);
 }
 
 .menu-toggle {
@@ -85,27 +114,26 @@ body {
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: #f0ece2;
+  color: var(--color-secondary);
   cursor: pointer;
 }
 
 .footer {
   text-align: center;
   padding: 2rem;
-  background-color: #19297C;
-  color: #D1BCE3;
-  border-top: 1px solid #A1867F;
+  background-color: var(--color-tertiary);
+  color: var(--color-primary);
+  border-top: 1px solid var(--color-secondary);
 }
 
 .footer a {
-  color: #D1BCE3;
+  color: var(--color-primary);
   text-decoration: none;
 }
 
 .footer a:hover {
   text-decoration: underline;
 }
-
 
 @media (max-width: 600px) {
   .navbar {

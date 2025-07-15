@@ -1,0 +1,47 @@
+body {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+}
+
+.results-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--color-tertiary), var(--color-accent), var(--color-tertiary));
+  background-size: 400% 400%;
+  animation: animated-gradient 10s ease infinite;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  color: var(--color-primary);
+}
+
+.result-entry {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.button.primary {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.75em 1.5em;
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.button.primary:hover {
+  background-color: var(--color-tertiary);
+  color: var(--color-primary);
+}
+
+@keyframes animated-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

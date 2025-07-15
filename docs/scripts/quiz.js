@@ -1,6 +1,5 @@
 "use strict";
 
-// Element selectors
 const quizContainer = document.querySelector(".quiz-container");
 const loadingScreen = document.getElementById("loading-screen");
 const artworkImage = document.getElementById("artwork-image");
@@ -11,13 +10,14 @@ const hintButton = document.getElementById("hint-button");
 const quitButton = document.getElementById("quit-button");
 const counterValue = document.getElementById("counter-value");
 
-// Global variables
 let paintings = [];
 let allPaintings = [];
 let currentPaintingIndex = 0;
 let counter = 0;
 let hintIndex = 0;
 let hintsExhausted = false;
+let lives = 2;
+let quizResults = [];
 
 function toggleVisibility(element, isVisible) {
   element.classList.toggle("hidden", !isVisible);
@@ -26,7 +26,6 @@ function toggleVisibility(element, isVisible) {
 
 const quizToken = localStorage.getItem("token");
 
-// Load all paintings
 async function fetchAllPaintings() {
   try {
     const response = await fetch("https://painting-apik.onrender.com/paintings/all");
@@ -40,7 +39,6 @@ async function fetchAllPaintings() {
   }
 }
 
-// Movement from query param
 const urlParams = new URLSearchParams(window.location.search);
 const selectedMovement = urlParams.get("movement");
 
@@ -99,6 +97,7 @@ function displayPainting(painting) {
   hintIndex = 0;
   hintsExhausted = false;
   hintButton.disabled = false;
+  lives = 2;
 
   const picture = document.createElement("picture");
 
@@ -134,56 +133,76 @@ function displayPainting(painting) {
   const allOptions = [...wrongOptions, correctTitle];
   shuffleArray(allOptions);
 
+  const currentGuesses = [];
+
   allOptions.forEach(option => {
     const button = document.createElement("button");
     button.textContent = option;
-    button.addEventListener("click", () => handleChoice(option, correctTitle));
+    button.addEventListener("click", () => handleChoice(option, correctTitle, currentGuesses));
     choicesContainer.appendChild(button);
   });
 }
 
-async function handleChoice(selectedOption, correctTitle) {
-  // Remove only previous feedback, not hints
+function handleChoice(selectedOption, correctTitle, currentGuesses) {
   const existingFeedback = hintContainer.querySelector(".feedback");
   if (existingFeedback) existingFeedback.remove();
 
   const feedback = document.createElement("p");
-  feedback.classList.add("feedback"); // for targeted removal later
+  feedback.classList.add("feedback");
 
-  if (selectedOption === correctTitle) {
+  currentGuesses.push(selectedOption);
+
+  const isCorrect = selectedOption === correctTitle;
+
+  if (isCorrect) {
     counter++;
     counterValue.textContent = counter;
-
-    if (++currentPaintingIndex < paintings.length) {
-      displayPainting(paintings[currentPaintingIndex]);
-    } else {
-      feedback.textContent = "🎉 Quiz completed! Saving score...";
-      feedback.classList.add("correct");
-      hintContainer.appendChild(feedback);
-
-      await saveScore();
-
-      const success = document.createElement("p");
-      success.textContent = "✅ Score saved! Returning to menu...";
-      success.classList.add("correct", "feedback");
-      hintContainer.appendChild(success);
-
-      setTimeout(() => {
-        window.location.href = "quiz-selection.html";
-      }, 2000);
-    }
+    quizResults.push({
+      title: paintings[currentPaintingIndex].title,
+      correct: true,
+      guesses: [selectedOption],
+      correctAnswer: correctTitle
+    });
+    nextPainting();
   } else {
-    feedback.textContent = "❌ Incorrect! Try again.";
-    feedback.classList.add("incorrect", "feedback");
-    hintContainer.appendChild(feedback);
+    lives--;
 
-    // Timer on feedback staying
-    setTimeout(() => {
-      feedback.remove();
-    }, 2000);
+    if (lives > 0) {
+      feedback.textContent = `❌ Incorrect! ${lives} ${lives === 1 ? "life" : "lives"} left.`;
+      feedback.classList.add("incorrect");
+      hintContainer.appendChild(feedback);
+      setTimeout(() => feedback.remove(), 2000);
+    } else {
+      quizResults.push({
+        title: paintings[currentPaintingIndex].title,
+        correct: false,
+        guesses: [...currentGuesses],
+        correctAnswer: correctTitle
+      });
+      feedback.textContent = `❌ Out of lives! Moving on...`;
+      feedback.classList.add("incorrect");
+      hintContainer.appendChild(feedback);
+      setTimeout(() => {
+        feedback.remove();
+        nextPainting();
+      }, 1500);
+    }
   }
 }
 
+function nextPainting() {
+  if (++currentPaintingIndex < paintings.length) {
+    displayPainting(paintings[currentPaintingIndex]);
+  } else {
+    finishQuiz();
+  }
+}
+
+async function finishQuiz() {
+  await saveScore();
+  localStorage.setItem("quizResults", JSON.stringify(quizResults));
+  window.location.href = "quiz-results.html";
+}
 
 hintButton.addEventListener("click", displayHint);
 
@@ -223,13 +242,7 @@ quitButton.addEventListener("click", () => {
 });
 
 async function saveScore() {
-  if (!quizToken) {
-    const warn = document.createElement("p");
-    warn.textContent = "⚠️ Not logged in.";
-    warn.classList.add("incorrect");
-    hintContainer.appendChild(warn);
-    return;
-  }
+  if (!quizToken) return;
 
   try {
     const response = await fetch("https://painting-backend-txkz.onrender.com/scores", {
@@ -245,21 +258,10 @@ async function saveScore() {
     });
 
     const result = await response.json();
-    const msg = document.createElement("p");
-
     if (!response.ok) {
-      msg.textContent = `⚠️ ${result.message || "Error saving score."}`;
-      msg.classList.add("incorrect");
-    } else {
-      msg.textContent = "✅ Score saved successfully!";
-      msg.classList.add("correct");
+      console.error(result.message || "Error saving score.");
     }
-
-    hintContainer.appendChild(msg);
   } catch (error) {
-    const err = document.createElement("p");
-    err.textContent = "❌ Failed to connect to the server.";
-    err.classList.add("incorrect");
-    hintContainer.appendChild(err);
+    console.error("❌ Failed to connect to the server.");
   }
 }
