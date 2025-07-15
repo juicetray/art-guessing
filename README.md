@@ -1,55 +1,63 @@
-# 🎨 WhoPainted - Art Guessing Game
+<p align="center">
+  <img src="docs/assets/hero-logo.svg" alt="WhoPainted Logo" width="700" />
+</p>
 
-**WhoPainted** is an interactive web app where users test their knowledge of historical and contemporary art by guessing the artist behind each painting. Inspired by casual trivia games and flashcards, this project blends clean design with a growing dataset of famous artworks.
+# 🎨 WhoPainted – Art Guessing Game
 
-Live Demo: [https://whopainted.com](https://whopainted.com/)
+**WhoPainted** is an interactive full-stack quiz app where users test their art knowledge by identifying the artist behind each painting. Featuring various art movements, layered hints, and secure user accounts, the app blends accessibility and design with rich art history content.
+
+🔗 Live Demo: [https://whopainted.com](https://whopainted.com)  
+🔗 API Repo: [painting-api](https://github.com/jdanderson01/painting-api)
 
 ---
 
 ## ✨ Features
 
-✅ Guess-the-artist quiz interface  
-✅ Art movement selection (Impressionism, Baroque, Surrealism, etc.)  
-✅ Hints with a lightbulb icon  
-✅ Login and registration (via Supabase + Node.js backend)  
-✅ Modularized CSS for scalable styling  
-✅ Custom logo and responsive UI  
-✅ Fully revamped quiz logic  
-✅ Accessible and mobile-friendly design
+- 🎨 Guess-the-artist quiz with real paintings  
+- 🖼️ Art movement selection (Baroque, Impressionism, Surrealism, etc.)  
+- 💡 Hints available via lightbulb icon  
+- 🔐 Login & registration (Supabase + Node.js backend)  
+- 🎯 2-attempt quiz logic with score tracking  
+- 🧱 Modular CSS and scalable frontend structure  
+- 📱 Responsive UI with accessibility enhancements  
+- 🧠 Learn page for exploring movements and history  
+- 🚀 Custom REST API to serve painting data  
+- ☁️ Images hosted on AWS S3 + CloudFront
+-  🏆 Leaderboards 
 
 ---
 
 ## 🛠️ Technologies Used
 
-- **HTML, CSS, JavaScript (Vanilla)**
-- **Node.js + Express** (backend API)
-- **Supabase** (authentication + score storage)
-- **AWS S3 + CloudFront** (image hosting)
-- **WebSockets (planned)** for future real-time multiplayer support
+- **Frontend**: HTML, CSS (modular), JavaScript (Vanilla)  
+- **Backend**: Node.js + Express  
+- **Authentication & DB**: Supabase  
+- **Hosting**: GitHub Pages (frontend), AWS S3, CloudFront (images)  
+- **Planned**: WebSockets for real-time multiplayer  
 
 ---
 
-## 📌 Project Structure
+## 📂 Project Structure
 
 ```
-├── assets/              # Logo, icons, and artwork metadata
-├── backend/             # Node + Express API
-├── docs/                # Frontend JavaScript
-│   └── navbar.js, quiz.js, login.js, etc.
-├── styles/              # Modular CSS files
+├── assets/              # Logos, icons, painting metadata
+├── backend/             # Express API + Supabase integration
+├── docs/                # JavaScript modules (quiz, auth, navigation)
+├── styles/              # CSS modules
 ├── index.html           # Landing page
+├── quiz.html            # Main quiz UI
+├── learn.html           # Informational content about art movements
+└── quiz-results.html    # Summary screen post-quiz
 ```
 
 ---
 
-## 🧪 In Progress / Planned Features
-
-- [ ] 🎯 Background texture polish  
-- [ ] 🏆 Leaderboard and user score history  
-- [ ] 🖼️ Expand painting library (more movements/artists)  
-- [ ] ℹ️ "About" / Info section  
-- [ ] ✍️ Flesh out landing page with more content  
-- [ ] 🔁 Real-time multiplayer support (WebSockets)
+## 🚧 In Progress / Planned Features
+- [ ] 🧠 “Learn” section with in-depth art movement overviews  
+- [ ] 🔁 WebSocket multiplayer mode  
+- [ ] 📈 Enhanced accessibility (ARIA, keyboard support)  
+- [ ] 🖼️ More paintings and movements  
+- [ ] ℹ️ “About” / credits section  
 
 ---
 
@@ -59,13 +67,13 @@ Live Demo: [https://whopainted.com](https://whopainted.com/)
 # Clone the repo
 git clone https://github.com/your-username/art-guessing.git
 
-# Install dependencies for backend
+# Backend setup
 cd backend
 npm install
 npm start
 ```
 
-Frontend is static — open `index.html` directly or deploy via GitHub Pages.
+The frontend is static — open `index.html` in your browser or deploy via GitHub Pages.
 
 ---
 
@@ -79,3 +87,4 @@ Frontend is static — open `index.html` directly or deploy via GitHub Pages.
 ## 📝 License
 
 This project is licensed under the MIT License.
+
