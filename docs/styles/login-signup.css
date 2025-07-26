@@ -89,13 +89,13 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-  background-color: var(--color-tertiary);
+  background-color: var(--color-accent);
   transform: scale(1.05);
 }
 
 .signup-container a,
 .login-container a {
-  color: var(--color-accent);
+  color: var(--color-primary);
   font-weight: bold;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -103,7 +103,8 @@ input[type="submit"]:hover {
 
 .signup-container a:hover,
 .login-container a:hover {
-  color: var(--color-secondary);
+  transform: scale(1.05);
+  text-decoration: underline;
 }
 
 @keyframes fadeIn {
