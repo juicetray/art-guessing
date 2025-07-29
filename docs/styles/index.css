@@ -62,26 +62,28 @@ html {
   padding: 4rem 2rem;
   text-align: center;
   background-color: var(--color-primary);
+  color: var(--color-secondary);
 }
 
-.demo-container {
-  max-width: 50rem;
-  margin: 0 auto;
-}
-
-.demo-gif {
+.demo-video {
   width: 100%;
-  max-width: 100%;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+  height: auto;
+  border-radius: 0.75rem;
+  margin: 2rem auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  display: block;
 }
 
 .demo-description {
-  color: var(--color-secondary);
   font-size: 1.1rem;
   max-width: 700px;
-  margin: 0 auto;
+  margin: 1rem auto 0;
+  color: var(--color-secondary);
+}
+
+.dark .demo-description {
+  color: var(--color-secondary);
 }
 
 .wave-separator {
