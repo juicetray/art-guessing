@@ -34,12 +34,12 @@ const authenticateUser = async (req, res, next) => {
   next();
 };
 
-// Routes
+
 app.get('/', (req, res) => {
-  res.send('🎨 Art Guessing Backend is live!');
+  res.send('Art Guessing Backend is live!');
 });
 
-// Sign up
+
 app.post('/signup', async (req, res) => {
   const { email, password, username } = req.body;
   const { data, error } = await supabase.auth.signUp({ email, password });
@@ -53,7 +53,7 @@ app.post('/signup', async (req, res) => {
   res.status(200).json({ message: 'Signup successful. Confirm email to continue.' });
 });
 
-// Login
+
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
@@ -68,7 +68,7 @@ app.get('/profile', authenticateUser, async (req, res) => {
 });
 
 
-// Save score
+
 app.post('/scores', authenticateUser, async (req, res) => {
   const { score, movement } = req.body;
   const userId = req.user.id;
@@ -131,4 +131,4 @@ app.get("/scores/leaderboard", async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

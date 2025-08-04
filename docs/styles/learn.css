@@ -30,9 +30,11 @@ body,
   break-inside: avoid;
   overflow: hidden;
   border-radius: 0.75rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  transition: transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   text-decoration: none;
+  will-change: transform;
+  backface-visibility: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .masonry-tile:hover {
@@ -52,14 +54,18 @@ body,
   left: 0;
   right: 0;
   background: rgba(10, 10, 10, 0.6);
-  background: rgba(10, 10, 10, 0.6);
-  color: var(--color-secondary);
+  color: var(--color-primary);
   text-align: center;
   padding: 0.5rem;
   font-weight: bold;
   font-size: 1rem;
   font-family: system-ui, sans-serif;
   transition: background 0.3s ease;
+  pointer-events: none;
+}
+
+.dark .masonry-tile .overlay {
+  color: var(--color-secondary);
 }
 
 .masonry-tile:hover .overlay {
