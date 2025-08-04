@@ -3,7 +3,7 @@ body {
   color: var(--color-secondary);
 }
 
-.movement-title {
+#movement-title {
   text-align: center;
   margin-top: 2rem;
   color: var(--color-tertiary);
