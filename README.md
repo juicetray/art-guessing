@@ -9,6 +9,8 @@
 🔗 Live Demo: [https://whopainted.com](https://whopainted.com)  
 🔗 API Repo: [painting-api](https://github.com/jdanderson01/painting-api)
 
+User login/registrarion currently on pause due to a database migration!
+
 ---
 
 ## ✨ Features
